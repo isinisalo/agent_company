@@ -1,3 +1,8 @@
 node_modules
-.swarmclaw
 .env.local
+
+# SwarmClaw runtime/build data. Keep only the config history needed for recovery.
+.swarmclaw/*
+!.swarmclaw/data/
+.swarmclaw/data/*
+!.swarmclaw/data/config-versions.json

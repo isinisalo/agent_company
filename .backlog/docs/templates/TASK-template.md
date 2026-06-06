@@ -39,14 +39,6 @@ Kuvaa, miksi tehtävä on tarpeellinen ja mitä ongelmaa se ratkaisee.
 - [Täydennä tausta tai ongelma]
 - [Täydennä tavoiteltu hyöty]
 
-### ESIMERKIT
-
-Kirjoita hyväksyttävät käyttäytymisesimerkit Spec by Example -muodossa.
-
-GIVEN [lähtötilanne]
-WHEN [toiminto tai tapahtuma]
-THEN [odotettu lopputulos]
-
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

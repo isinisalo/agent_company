@@ -5,12 +5,22 @@ type: guide
 created_date: '2026-06-06 07:57'
 tags:
   - templates
-  - task-template
-  - spec-by-example
+  - task
 ---
-# TASK-template
 
-Tätä pohjaa käytetään uusien Backlog-taskien sisällön määrittelyyn. Käyttäjä määrittää tehtävän intentin: **MITÄ**, **MIKSI** ja **ESIMERKIT**. Agentti täydentää tämän perusteella toteutustavan: **MITEN**.
+```md
+---
+id: task-000
+title: "Task title tähän"
+status: To Do
+assignee: []
+created_date: 'YYYY-MM-DD HH:mm'
+labels: []
+milestone: m-0
+dependencies: []
+priority: medium
+ordinal: 1000
+---
 
 ## Description
 
@@ -28,6 +38,14 @@ Kuvaa, miksi tehtävä on tarpeellinen ja mitä ongelmaa se ratkaisee.
 
 - [Täydennä tausta tai ongelma]
 - [Täydennä tavoiteltu hyöty]
+
+### ESIMERKIT
+
+Kirjoita hyväksyttävät käyttäytymisesimerkit Spec by Example -muodossa.
+
+GIVEN [lähtötilanne]
+WHEN [toiminto tai tapahtuma]
+THEN [odotettu lopputulos]
 
 <!-- SECTION:DESCRIPTION:END -->
 
@@ -65,3 +83,4 @@ Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
 - [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
 - [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
 <!-- DOD:END -->
+```

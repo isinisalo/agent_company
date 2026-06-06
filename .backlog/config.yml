@@ -1,6 +1,6 @@
 project_name: "agent_company"
 default_status: "To Do"
-statuses: ["To Do", "In Progress", "Done"]
+statuses: ["To Do", "Plan", "Review", "Test", "Implement", "QA", "Deploy", "Blocked", "In Progress", "Done"]
 labels: []
 definition_of_done: []
 date_format: yyyy-mm-dd

@@ -4,13 +4,17 @@ title: Toteuta EnableUser-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-06 08:39'
+updated_date: '2026-06-07 08:58'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
   - TASK-002
+documentation:
+  - >-
+    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
+  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium
 ordinal: 6000
 ---
@@ -19,26 +23,30 @@ ordinal: 6000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin käyttäjätilin aktivointi.
+Toteuta Auth-kontekstin admin-toiminto käyttäjätilin sallimiseen ADR-009:n mukaisesti.
 
-- Tarjoa REST-rajapinnat `PATCH /auth/enable` ja `PUT /auth/enable`.
-- Vaadi auktorisoinniksi rooli vähintään `ADMIN`.
+- Tarjoa REST-rajapinta `PATCH /auth/users/enable`.
+- Vaadi auktorisoinniksi `ADMIN`-rooli.
 - Hyväksy query-parametrina `email`.
-- Lataa käyttäjä sähköpostilla `IUserRepository`-portin kautta.
-- Kutsu `User.enable`-toimintoa ja persistoi päivitys.
-- Palauta aktivoinnin tila vastauksessa.
+- Lataa käyttäjä normalisoidulla emaililla `IUserRepository`-portin kautta.
+- Aseta käyttäjän `enabled=true` ja persistoi päivitys.
+- Älä muuta käyttäjän `email_verified_at`-arvoa.
 
 ### MIKSI
-Admin-käyttäjän pitää pystyä palauttamaan tai aktivoimaan käyttäjätili hallitusti. Usecase keskittää aktivoinnin domain-sääntöihin ja varmistaa, että vain admin-rooli voi muuttaa käyttäjän enabled-tilaa.
+Adminin pitää pystyä palauttamaan käyttäjätilin käyttöoikeus ilman, että sähköpostivahvistuksen tila muuttuu. Usecase erottaa adminin käyttöeston sähköpostivahvistuksesta ja rajaa muutoksen vain `ADMIN`-roolille.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN disabled user, WHEN `PATCH /auth/enable` tai `PUT /auth/enable` kutsutaan ADMIN-roolilla, THEN vastaus on `200`, enabled response palautetaan ja käyttäjä persistetään `enabled=true`.
-- [ ] #2 GIVEN missing user, WHEN enable-usecase kutsutaan emaililla, THEN vastaus on `404 Not Found`.
-- [ ] #3 GIVEN kutsujan rooli on alle ADMIN, WHEN enable-usecasea kutsutaan, THEN pyyntö hylätään auktorisointivirheenä eikä käyttäjää päivitetä.
-- [ ] #4 GIVEN aktivointi onnistuu, WHEN vastaus muodostetaan, THEN domain-tapahtumia ei julkaista.
+- [ ] #1 GIVEN disabled user ja kutsuja roolilla `ADMIN`, WHEN `PATCH /auth/users/enable?email=...` kutsutaan, THEN vastaus on `204 No Content` ja käyttäjä persistetään `enabled=true`.
+- [ ] #2 GIVEN user on jo `enabled=true` ja kutsuja roolilla `ADMIN`, WHEN enable-usecase kutsutaan, THEN vastaus on `204 No Content` ja operaatio on idempotentti.
+- [ ] #3 GIVEN käyttäjä löytyy, WHEN enable-usecase onnistuu, THEN `email_verified_at` ei muutu.
+- [ ] #4 GIVEN käyttäjää ei löydy ja kutsuja on `ADMIN`, WHEN enable-usecase kutsutaan emaililla, THEN vastaus on `404 Not Found` eikä uutta käyttäjää luoda.
+- [ ] #5 GIVEN kutsujan rooli ei ole `ADMIN`, WHEN enable-usecasea kutsutaan, THEN pyyntö hylätään auktorisointivirheenä ennen käyttäjän päivittämistä.
+- [ ] #6 GIVEN aktivointi onnistuu tai epäonnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä credential- tai token-kenttiä lokiteta.
 <!-- AC:END -->
+
+
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

@@ -4,13 +4,17 @@ title: Toteuta ListUsers-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:20'
-updated_date: '2026-06-06 08:39'
+updated_date: '2026-06-07 08:58'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
   - TASK-002
+documentation:
+  - >-
+    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
+  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium
 ordinal: 9000
 ---
@@ -19,26 +23,31 @@ ordinal: 9000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin käyttäjäsummaryjen listaus.
+Toteuta Auth-kontekstin admin-listaus käyttäjäsummaryille ADR-009:n mukaisesti.
 
 - Tarjoa REST-rajapinta `GET /auth/users`.
-- Vaadi auktorisoinniksi rooli vähintään `READER`.
-- Lataa käyttäjäkokoelma `IUserRepository.list_users`-portin kautta.
-- Palauta käyttäjäsummary-lista.
+- Vaadi auktorisoinniksi `ADMIN`-rooli.
+- Hyväksy valinnaiset query-parametrit `limit` ja `cursor`.
+- Hae käyttäjäsummary-sivu `IUserRepository.list_users(limit, cursor)`-portin kautta ilman runtime-tauluskannausta.
 - Palauta tyhjä lista, kun käyttäjiä ei ole.
+- Älä palauta credential-, password hash- tai token-digest-kenttiä.
 
 ### MIKSI
-Käyttäjien hallinta ja tarkastelu edellyttää listausrajapintaa, jota vähintään reader-tason käyttäjät voivat käyttää. Usecase määrittää kevyen lukupolun ilman käyttäjän muokkausta tai domain-tapahtumia.
+Admin-käyttäjän pitää pystyä tarkastelemaan käyttäjiä hallintaa varten ilman, että Authin salaiset tai credential-luonteiset kentät vuotavat API-vastaukseen. Rajattu ja sivutettu listaus sopii DynamoDB:n access pattern -reunaehtoihin paremmin kuin rajoittamaton tauluskannaus.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN users exist, WHEN `GET /auth/users` kutsutaan roolilla vähintään READER, THEN vastaus on `200` ja sisältää user summary list -vastauksen.
-- [ ] #2 GIVEN no users, WHEN `GET /auth/users` kutsutaan roolilla vähintään READER, THEN vastaus on `200` ja sisältää tyhjän listan.
-- [ ] #3 GIVEN kutsujan rooli on alle READER, WHEN list-users-usecasea kutsutaan, THEN pyyntö hylätään auktorisointivirheenä.
-- [ ] #4 GIVEN listaus suoritetaan, WHEN käyttäjät haetaan, THEN käytetään `IUserRepository.list_users`-porttia eikä käyttäjiä persistetä.
-- [ ] #5 GIVEN listaus onnistuu, WHEN vastaus muodostetaan, THEN domain-tapahtumia ei julkaista.
+- [ ] #1 GIVEN users exist ja kutsuja roolilla `ADMIN`, WHEN `GET /auth/users` kutsutaan, THEN vastaus on `200 OK` ja sisältää käyttäjäsummaryjen listan.
+- [ ] #2 GIVEN no users ja kutsuja roolilla `ADMIN`, WHEN `GET /auth/users` kutsutaan, THEN vastaus on `200 OK` ja sisältää tyhjän listan.
+- [ ] #3 GIVEN kutsujan rooli ei ole `ADMIN`, WHEN list-users-usecasea kutsutaan, THEN pyyntö hylätään auktorisointivirheenä ennen käyttäjien hakua.
+- [ ] #4 GIVEN listaus suoritetaan, WHEN käyttäjät haetaan, THEN käytetään `IUserRepository.list_users(limit, cursor)`-porttia eikä käyttäjiä persistetä.
+- [ ] #5 GIVEN vastaus muodostetaan, WHEN käyttäjäsummaryt serialisoidaan, THEN yksikään item ei sisällä `password_hash`, `password_hash_algorithm`, `verification_token_digest`, `reset_password_token_digest`, plaintext-tokenia tai muuta credential-kenttää.
+- [ ] #6 GIVEN `limit` puuttuu tai ylittää sallitun ylärajan, WHEN listaus suoritetaan, THEN käytetään toteutuksessa määriteltyä turvallista oletus- tai maksimiarvoa ja palautetaan `next_cursor`, jos lisää tuloksia on saatavilla.
+- [ ] #7 GIVEN listaus onnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä credential- tai token-kenttiä lokiteta.
 <!-- AC:END -->
+
+
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

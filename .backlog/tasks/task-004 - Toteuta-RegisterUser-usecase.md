@@ -4,13 +4,17 @@ title: Toteuta RegisterUser-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-06 08:39'
+updated_date: '2026-06-07 08:57'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
   - TASK-002
+documentation:
+  - >-
+    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
+  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium
 ordinal: 3000
 ---
@@ -19,27 +23,31 @@ ordinal: 3000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin käyttäjän rekisteröinti.
+Toteuta Auth-kontekstin public registration ADR-009:n mukaisesti.
 
-- Tarjoa REST-rajapinta `POST /auth/register` roolille vähintään `GUEST`.
-- Hyväksy pyynnössä `name`, `email`, `password`, `role` ja `enabled`.
+- Tarjoa julkinen REST-rajapinta `POST /auth/register`.
+- Hyväksy pyynnössä vain `name`, `email` ja `password`.
+- Hylkää clientin antamat `role`- ja `enabled`-kentät.
 - Tarkista rekisteröinnin feature flag polusta `/feature/auth/register_user`.
-- Varmista, että email on uniikki ennen uuden käyttäjän luontia.
-- Luo käyttäjä `User.create`-toiminnolla ja persistoi se `IUserRepository.create_user`-portilla.
-- Julkaise `NewUserRegistered`-domain-tapahtuma `EventBus`-portilla.
+- Luo uusi käyttäjä roolilla `READER`, `enabled=true` ja `email_verified_at=null`.
+- Hashaa salasana `PasswordHasher`-portilla, tallenna verification-tokenin digest ja julkaise tokeniton `NewUserRegistered`-domain-event.
 
 ### MIKSI
-Rekisteröinti käynnistää käyttäjän elinkaaren Auth-kontekstissa. Usecase varmistaa, että uudet käyttäjät syntyvät validilla datalla, uniikilla sähköpostilla ja tapahtumalla, jota muu järjestelmä voi hyödyntää esimerkiksi sähköpostivahvistukseen.
+Rekisteröinti käynnistää käyttäjän elinkaaren ilman admin-toimenpidettä. Usecase varmistaa, että uusi käyttäjä syntyy yhtenäisillä Auth-säännöillä eikä client voi nostaa oikeuksiaan tai ohittaa sähköpostivahvistusta.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN new email, WHEN `POST /auth/register` kutsutaan validilla pyynnöllä, THEN vastaus on `201`, käyttäjä persistetään disabled-tilassa ja `NewUserRegistered` julkaistaan.
-- [ ] #2 GIVEN existing email, WHEN `POST /auth/register` kutsutaan samalla emaililla, THEN rekisteröinti hylätään validointivirheenä eikä uutta käyttäjää luoda.
-- [ ] #3 GIVEN feature disabled, WHEN `POST /auth/register` kutsutaan, THEN rekisteröinti hylätään eikä käyttäjää persistetä.
-- [ ] #4 GIVEN rekisteröinti onnistuu, WHEN `NewUserRegistered` julkaistaan, THEN tapahtuma sisältää version, causation, correlation_id, occurred_at, name, email, role, enabled ja verification_token -kentät.
-- [ ] #5 GIVEN pyynnön password ei täytä Password-sääntöjä, WHEN rekisteröintiä yritetään, THEN pyyntö hylätään validointivirheenä.
+- [ ] #1 GIVEN rekisteröinti on feature flagilla sallittu ja email on uusi, WHEN `POST /auth/register` kutsutaan validilla `name`, `email` ja `password` -pyynnöllä, THEN vastaus on `201 Created` ja käyttäjä persistetään roolilla `READER`, `enabled=true` ja `email_verified_at=null`.
+- [ ] #2 GIVEN rekisteröinti onnistuu, WHEN käyttäjä persistetään, THEN tallennettu käyttäjä sisältää password hashin ja verification-token-digestin mutta ei plaintext-salasanaa tai plaintext-tokenia.
+- [ ] #3 GIVEN rekisteröinti onnistuu, WHEN `NewUserRegistered` julkaistaan, THEN tapahtuma noudattaa ADR-009:n `DomainEvent`-sopimusta eikä sisällä plaintext-tokenia, token-digestiä, salasanaa tai password hashia.
+- [ ] #4 GIVEN pyyntö sisältää `role`- tai `enabled`-kentän, WHEN `POST /auth/register` kutsutaan, THEN pyyntö hylätään validointivirheenä eikä käyttäjää luoda.
+- [ ] #5 GIVEN email on jo käytössä, WHEN rekisteröintiä yritetään samalla emaililla, THEN pyyntö hylätään konfliktina eikä uutta käyttäjää tai domain-tapahtumaa synny.
+- [ ] #6 GIVEN rekisteröinnin feature flag puuttuu, on lukukelvoton tai on `false`, WHEN `POST /auth/register` kutsutaan, THEN rekisteröinti hylätään hallitulla virheellä eikä käyttäjää persistetä.
+- [ ] #7 GIVEN pyynnön email, name tai password ei täytä ADR-009:n sääntöjä, WHEN rekisteröintiä yritetään, THEN pyyntö hylätään validointivirheenä ennen persistointia.
 <!-- AC:END -->
+
+
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

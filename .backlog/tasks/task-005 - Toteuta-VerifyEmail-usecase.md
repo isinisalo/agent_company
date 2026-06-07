@@ -4,13 +4,17 @@ title: Toteuta VerifyEmail-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-06 08:39'
+updated_date: '2026-06-07 08:57'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
   - TASK-002
+documentation:
+  - >-
+    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
+  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium
 ordinal: 4000
 ---
@@ -19,26 +23,29 @@ ordinal: 4000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin sähköpostivahvistus.
+Toteuta Auth-kontekstin sähköpostivahvistus ADR-009:n mukaisesti.
 
-- Tarjoa julkinen REST-rajapinta `GET /auth/verify-email`.
-- Hyväksy query-parametreina `email` ja `token`.
-- Lataa käyttäjä sähköpostilla `IUserRepository`-portista.
-- Varmista token `User.verify_email`-toiminnolla.
-- Persistoi käyttäjän päivitys `IUserRepository.update`-portilla.
-- Palauta vahvistuksen tila vastauksessa.
+- Tarjoa julkinen REST-rajapinta `POST /auth/email-verifications`.
+- Hyväksy pyynnössä `email` ja `token`.
+- Lataa käyttäjä normalisoidulla emaililla `IUserRepository`-portista.
+- Varmista token käyttäjän `verification_token_digest`- ja `verification_token_expires_at` -arvoja vasten.
+- Aseta `email_verified_at`, tyhjennä verification-tokenin digest ja vanhenemisaika, ja persistoi käyttäjä.
+- Älä muuta käyttäjän adminin hallitsemaa `enabled`-tilaa.
 
 ### MIKSI
-Sähköpostivahvistus viimeistelee rekisteröinnin ja aktivoi käyttäjän käyttöön. Usecase varmistaa, että vain oikealla vahvistustokenilla käyttäjän email hyväksytään ja verification_token poistetaan käytöstä.
+Sähköpostivahvistus viimeistelee rekisteröinnin login-kelpoiseksi ilman, että sähköpostitokenin plaintext-arvoa tallennetaan tai julkaistaan. Usecase erottaa sähköpostin vahvistuksen adminin käyttöestoista.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN matching token, WHEN `GET /auth/verify-email` kutsutaan emaililla ja tokenilla, THEN vastaus on `200`, käyttäjä on `enabled=true` ja `verification_token` on tyhjennetty.
-- [ ] #2 GIVEN invalid token, WHEN `GET /auth/verify-email` kutsutaan, THEN vahvistus hylätään validointivirheenä eikä käyttäjää aktivoida.
-- [ ] #3 GIVEN käyttäjä löytyy ja token täsmää, WHEN vahvistus onnistuu, THEN käyttäjä päivitetään `IUserRepository.update`-portin kautta.
-- [ ] #4 GIVEN sähköpostivahvistus onnistuu tai epäonnistuu, WHEN vastaus muodostetaan, THEN domain-tapahtumia ei julkaista.
+- [ ] #1 GIVEN käyttäjä on vahvistamatta ja token täsmää voimassa olevaan verification-token-digestiin, WHEN `POST /auth/email-verifications` kutsutaan, THEN vastaus on `200 OK`, `email_verified_at` asetetaan ja verification-tokenin digest sekä vanhenemisaika tyhjennetään.
+- [ ] #2 GIVEN käyttäjän `enabled` on `true` tai `false`, WHEN sähköpostivahvistus onnistuu, THEN usecase ei muuta `enabled`-arvoa.
+- [ ] #3 GIVEN token on väärä, vanhentunut, jo käytetty tai käyttäjää ei löydy, WHEN `POST /auth/email-verifications` kutsutaan, THEN vahvistus hylätään generic validointivirheenä eikä käyttäjää päivitetä.
+- [ ] #4 GIVEN pyyntö ei sisällä validia emailia tai tokenia, WHEN `POST /auth/email-verifications` kutsutaan, THEN pyyntö hylätään validointivirheenä ennen persistointia.
+- [ ] #5 GIVEN sähköpostivahvistus onnistuu tai epäonnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä plaintext-tokenia tai token-digestiä palauteta tai lokiteta.
 <!-- AC:END -->
+
+
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

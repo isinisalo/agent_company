@@ -38,7 +38,7 @@ in `.backlog/docs/intent/doc-001 - goal.md`. Project boundaries and agent
 decision limits are defined by the accepted ADRs in `.backlog/decisions/`.
 
 The currently accepted high-level ADRs are `.backlog/decisions/decision-001` through
-`.backlog/decisions/decision-009`. Former detail-level Auth ADRs numbered 009
+`.backlog/decisions/decision-010`. Former detail-level Auth ADRs numbered 009
 through 011 were intentionally removed from the canonical decision set before
 the current project-level `decision-009` was added.
 
@@ -74,7 +74,7 @@ user-approved ADR.
 Before planning or implementation, read the minimum relevant context:
 
 - Project goal: `.backlog/docs/intent/doc-001 - goal.md`
-- Accepted high-level ADRs: `.backlog/decisions/decision-001` through `.backlog/decisions/decision-009`
+- Accepted high-level ADRs: `.backlog/decisions/decision-001` through `.backlog/decisions/decision-010`
 - Relevant Backlog task and linked specs or ADRs
 - Existing code, tests, commands, and local conventions once application code
   exists

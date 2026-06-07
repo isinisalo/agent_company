@@ -1,9 +1,9 @@
 ---
 id: doc-001
-title: Projektin tavoite
+title: goal
 type: other
 created_date: '2026-06-06 07:19'
-updated_date: '2026-06-07 11:19'
+updated_date: '2026-06-07 12:43'
 tags:
   - intent
   - goal
@@ -12,32 +12,44 @@ tags:
 
 ## GOAL
 
-Rakenna palvelu, jossa suomalaisiin yrityksiin liittyvä seuranta-, markkina-, perustieto- ja keskusteluaineisto näkyy keskitetysti yhdessä selainkäyttöliittymässä.
+Rakenna selainkäyttöinen palvelu, jossa käyttäjä voi seurata suomalaisia yrityksiä ja nähdä samassa näkymässä yrityksen perustiedot, markkinadatan, yritykseen liittyvän keskusteluaineiston ja tiedonkeruun tilan.
 
-Palvelun ydin on seurattavien yritysten lista. Järjestelmä kerää, tallentaa ja näyttää yrityksiin liittyvää tietoa niin, että käyttäjän ei tarvitse hakea samaa tietoa käsin erillisistä lähteistä.
+Palvelun onnistunut lopputila on, että seurattava yritys lisätään järjestelmään kerran, minkä jälkeen järjestelmä kerää, tallentaa, attribuoi ja näyttää yritykseen liittyvän tiedon ilman, että käyttäjän täytyy hakea sama tieto käsin erillisistä lähteistä.
 
 ## INTENT
 
-Käyttäjä määrittää projektin tavoitteen, rajaukset, hyväksytyt teknologiset päälinjat ja prioriteetin. Agentit määrittävät toteutuksen HOW-tason yksityiskohdat Backlog-tehtävissä ja detail-spesifikaatioissa näiden rajojen sisällä.
+Agenttien tulee tehdä ratkaisuja kohti keskitettyä yritysseurantapalvelua, ei yleistä CRM:ää, sijoitusneuvontatyökalua, yritysrekisteriä tai sosiaalisen median keräintä.
 
-Yksityiskohtainen domain-, API-, data-, infra-, operointi- tai testausratkaisu ei kuulu tähän dokumenttiin. Jos agentti tarvitsee detail-ratkaisun, se toteuttaa tai päivittää sitä koskevan tehtävän `Agent detail specifications` -milestonessa.
+Toteutuksen tulee priorisoida jäljitettävää tiedonkeruuta, lähdeattribuutiota, turvallista käyttäjähallintaa, mock-only-kehitystä ja tuotantokäytön eksplisiittisiä stop-sääntöjä. HOW-tason ratkaisut saa määrittää vain hyväksyttyjen ADR:ien ja näiden intent-dokumenttien rajojen sisällä.
 
-## WHY
+## PRODUCT SCOPE
 
-Palvelun tarkoitus on tehdä yritystiedon seurannasta toistettavaa, jäljitettävää ja automatisoitavaa. Rekisteröitynyt käyttäjä voi tarkastella kerättyä tietoa roolinsa sallimissa rajoissa. Ylläpitäjä voi hallita seurattavia yrityksiä ja sitä, mitä tietoa niistä kerätään.
+Järjestelmän bounded contextit ovat:
 
-## WHAT
+- `Auth`: käyttäjän rekisteröinti, kirjautuminen, sähköpostivahvistus, salasanan resetointi ja admin-käyttäjähallinta.
+- `Notifications`: viestien toimituspyynnöt, renderöinti, mock-only-toimitus ja toimitustila.
+- `Companies and watchlist`: seurattavat yritykset, yritysten perustiedot ja keruuasetukset.
+- `Marketdata`: seurattavien yritysten markkinadatan haku, normalisointi, tallennus ja näyttäminen.
+- `Comments`: yrityksiin liittyvän keskusteluaineiston topic-perusteinen haku, deduplikointi, tallennus ja näyttäminen.
+- `Scheduling`: ajastetut keruuajot, run-state, retryt, tulosten tallennus ja compliance-puutteisen tuotantokeruun esto.
 
-Järjestelmän tulee sisältää nämä bounded contextit:
+Osa-alueiden tavoite- ja päätösrajat ovat näissä dokumenteissa:
 
-- `Auth`: käyttäjän rekisteröinti, kirjautuminen, sähköpostivahvistus, salasanan resetointi ja käyttäjähallinta.
-- `Notifications`: käyttäjälle lähetettävät viestit, toimituspyynnöt ja toimituksen tila.
-- `Companies and watchlist`: seurattavat yritykset, yritysten perustietojen hallinta ja keruuasetukset.
-- `Marketdata`: seurattavien yritysten markkinadatan haku, tallennus ja näyttäminen.
-- `Comments`: yrityksiin liittyvän keskusteluaineiston haku, tallennus ja näyttäminen.
-- `Scheduling`: ajastetut tausta-ajot, keruiden käynnistys ja ajon tilan seuranta.
+- `.backlog/docs/intent/doc-004 - Project-delivery-and-agent-spec-goals.md`
+- `.backlog/docs/intent/doc-005 - Auth-bounded-context-goal.md`
+- `.backlog/docs/intent/doc-006 - Notifications-bounded-context-goal.md`
+- `.backlog/docs/intent/doc-007 - Companies-and-watchlist-bounded-context-goal.md`
+- `.backlog/docs/intent/doc-008 - Marketdata-bounded-context-goal.md`
+- `.backlog/docs/intent/doc-009 - Comments-bounded-context-goal.md`
+- `.backlog/docs/intent/doc-010 - Scheduling-bounded-context-goal.md`
 
-Hyväksytyt korkean tason teknologiarajat ovat:
+## SOURCE INTENT
+
+Hyväksytyt ulkoiset lähteet ovat EODHD markkinadataan, PRH:n YTJ Open Data API v3 yritysten perustietoihin ja Inderes Forum keskusteluaineistoon. Yritykseen liittyvä Inderes Forum -kommentointi haetaan yritykselle määritetyn topicin perusteella.
+
+Ulkoisten lähteiden alkuvaiheen käyttö on mock-only. Tuotantokäyttö vaatii hyväksytyt käyttöehdot, credential-käsittelyn, kutsurajat, aikakatkaisut, retentionin, virheluokat, lokirajat ja dokumentoidun evidenssin.
+
+## TECHNOLOGY BOUNDARIES
 
 - Monorepon sallitut top-level sovellusalueet ovat `backend/`, `frontend/` ja `infra/`.
 - Backend on Python 3.14 FastAPI Lambda -backend, joka noudattaa ports and adapters -arkkitehtuuria.
@@ -46,25 +58,18 @@ Hyväksytyt korkean tason teknologiarajat ovat:
 - Pysyvä sovellusdata tallennetaan DynamoDB:hen.
 - API-autentikointi käyttää JWT bearer -mallia.
 - Paikalliset ulkoisten REST API:en mockit toteutetaan Mockoonilla.
+- Yksikkötesteissä AWS palvelut mockataan moto5 avulla ja ulkoiset kutsut responses kirjastolla.
 - CI/CD toteutetaan GitHub Actionsilla.
-- Ulkoiset lähteet ovat EODHD, PRH:n YTJ Open Data API v3 ja Inderes Forum, kun niiden käyttöehdot ja tuotantokäytön rajat on hyväksytty.
 
-## OUT OF SCOPE
+## CONSTRAINTS
 
-Järjestelmä ei tuota sijoitusneuvontaa, osto- tai myyntisuosituksia, automaattisia kaupankäyntipäätöksiä eikä kaupankäyntitoiminnallisuutta.
+- Domain ei saa riippua AWS:n, HTTP:n, DynamoDB:n, FastAPI:n, Pydanticin, JWT-kirjaston tai ulkoisten API:en raakamalleista.
+- Salaisuuksia, credentialeja, tokeneita, password hasheja, token-digestejä, API-avaimia, JWT:itä tai PII:tä ei saa palauttaa API-vastauksissa, julkaista eventeissä, tallentaa fixtureihin tai lokittaa.
+- Tokenillisia reference-URL:eja tai credentialeja ei saa tallentaa dokumentteihin.
+- Tuotantodeploy, tuotantodata, oikeat credentialit, cloud-oikeudet ja ulkoisten lähteiden tuotantokäyttö vaativat erillisen hyväksynnän ja dokumentoidun evidenssin.
+- Järjestelmä ei tuota sijoitusneuvontaa, osto- tai myyntisuosituksia, automaattisia kaupankäyntipäätöksiä eikä kaupankäyntitoiminnallisuutta.
+- Reaaliaikainen streaming-markkinadata ei kuulu alkuvaiheen tavoitteeseen.
 
-Järjestelmä ei ole yleinen CRM-, taloushallinto-, analytiikka- tai yritysrekisterijärjestelmä. Yritystiedot mallinnetaan vain seurannan, keruun ja näyttämisen tarpeisiin.
+## EVIDENCE
 
-Keskustelukeruu ei ole yleinen sosiaalisen median keräin. Alkuvaiheen keskustelulähde on Inderes Forum vain hyväksytyn compliance-rajauksen jälkeen.
-
-Reaaliaikainen streaming-markkinadata ei kuulu alkuvaiheen tavoitteeseen.
-
-## HIGH-LEVEL CONSTRAINTS
-
-Domain ei saa riippua AWS:n, HTTP:n, DynamoDB:n, FastAPI:n, Pydanticin, JWT-kirjaston tai ulkoisten API:en raakamalleista.
-
-Salaisuuksia, credentialeja, tokeneita, password hasheja, token-digestejä, API-avaimia tai PII:tä ei saa palauttaa API-vastauksissa, julkaista eventeissä, tallentaa fixtureihin tai lokittaa.
-
-Tuotantodeploy, tuotantodata, oikeat credentialit, cloud-oikeudet ja ulkoisten lähteiden tuotantokäyttö vaativat erillisen hyväksytyn tehtävän ja dokumentoidun evidenssin.
-
-Hyväksytyt korkean tason ADR:t ovat `.backlog/decisions/decision-001` - `.backlog/decisions/decision-008`. Detail-tason Auth-päätökset 009-011 eivät ole kanonisia ja niiden sisältö kuuluu agenttien detail-spec-tehtäviin.
+Tavoite etenee oikeaan suuntaan, kun agentti pystyy osoittamaan konkreettisilla dokumenteilla, testeillä tai toimivalla koodilla, että seurattavan yrityksen lisääminen, tiedon keruu, lähdeattribuoitu tallennus, selaimessa näkyvä koontinäkymä, käyttäjän autentikointi ja tuotantokeruun stop-säännöt toimivat ilman salaisuuksien vuotoa.

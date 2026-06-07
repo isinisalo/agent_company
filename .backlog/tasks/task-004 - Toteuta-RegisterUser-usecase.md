@@ -13,10 +13,8 @@ dependencies:
   - TASK-002
 references:
   - >-
-    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
-documentation:
-  - >-
-    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
+    .backlog/decisions/*.md
+  - .backlog/docs/intent/goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium
 ordinal: 3000

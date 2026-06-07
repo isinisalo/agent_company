@@ -10,11 +10,11 @@ labels:
   - Auth
 milestone: m-1
 dependencies: []
-documentation:
+references:
   - >-
-    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
+    .backlog/decisions/*.md
   - .backlog/docs/intent/goal.md
+  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium
 ordinal: 1000
 ---

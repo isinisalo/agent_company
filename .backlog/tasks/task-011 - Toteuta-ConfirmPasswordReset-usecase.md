@@ -14,13 +14,11 @@ dependencies:
   - TASK-006
 references:
   - >-
-    https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html
-  - >-
-    https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
-documentation:
-  - >-
-    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
+    .backlog/decisions/*.md
+  - .backlog/docs/intent/goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
+  - https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html
+  - https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 priority: medium
 ordinal: 5500
 ---

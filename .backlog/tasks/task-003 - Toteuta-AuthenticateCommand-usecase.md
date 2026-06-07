@@ -4,7 +4,7 @@ title: Toteuta Login-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:18'
-updated_date: '2026-06-07 09:37'
+updated_date: '2026-06-07 10:08'
 labels:
   - Backend
   - Auth
@@ -12,8 +12,7 @@ milestone: m-1
 dependencies:
   - TASK-002
 references:
-  - >-
-    .backlog/decisions/*.md
+  - .backlog/decisions/*.md
   - .backlog/docs/intent/goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium
@@ -24,7 +23,7 @@ ordinal: 2000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin käyttäjän kirjautuminen ADR-008:n ja ADR-009:n mukaisesti.
+Toteuta Auth-kontekstin käyttäjän kirjautuminen.
 
 - Tarjoa julkinen REST-rajapinta `POST /auth/token`.
 - Hyväksy pyynnössä `email` ja `password`.
@@ -45,12 +44,6 @@ Kirjautuminen on selaimen ja API:n perusvirta. Usecase varmistaa, että API-toke
 - [ ] #4 GIVEN pyyntö ei sisällä validia emailia tai salasanaa, WHEN `POST /auth/token` kutsutaan, THEN pyyntö hylätään validointivirheenä ennen salasanatarkistusta.
 - [ ] #5 GIVEN autentikointi epäonnistuu tai onnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä salasanaa, password hashia, JWT:tä tai salaisia avaimia lokiteta.
 <!-- AC:END -->
-## Definition of Done
-<!-- DOD:BEGIN -->
-- [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
-- [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
-- [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
-<!-- DOD:END -->
 
 ## Implementation Plan
 
@@ -73,3 +66,10 @@ Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdollis
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
 Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
 <!-- SECTION:FINAL_SUMMARY:END -->
+
+## Definition of Done
+<!-- DOD:BEGIN -->
+- [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
+- [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
+- [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
+<!-- DOD:END -->

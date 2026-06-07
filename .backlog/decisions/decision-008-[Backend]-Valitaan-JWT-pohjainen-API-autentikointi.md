@@ -16,5 +16,5 @@ JWT-tokenit valitaan backendin API-autentikoinnin bearer-token-malliksi. API-reu
 - Tokenin allekirjoitus, expiration, issuer, audience ja vaaditut claimit tarkistetaan ennen use case -kutsua.
 - Domain ja application eivät saa importata JWT-kirjastoa, lukea HTTP-headereita tai käsitellä raakaa tokenia.
 - JWT-salaisuudet, yksityiset avaimet ja issuer-konfiguraatio säilytetään Secrets Managerissa tai hyväksytyssä turvallisessa konfiguraatiopalvelussa.
-- Tokeneita, token-digestejä, salasanoja, hasheja tai salaisia avaimia ei saa lokittaa, commitoida, palauttaa API-vastauksessa tai tallentaa fixtureen.
+- Tokeneita, token-digestejä, salasanoja, password hasheja, API-avaimia, PII:tä tai salaisia avaimia ei saa lokittaa, commitoida, palauttaa API-vastauksessa tai tallentaa fixtureen.
 - Refresh-tokenien, revokoinnin ja tokenin elinkaaren yksityiskohdat vaativat erillisen hyväksytyn auth-spesifikaation tai tehtävän.

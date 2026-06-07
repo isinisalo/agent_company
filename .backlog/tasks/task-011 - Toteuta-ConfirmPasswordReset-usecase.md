@@ -4,7 +4,7 @@ title: 'Auth: Salasanan resetoinnin vahvistus'
 status: To Do
 assignee: []
 created_date: '2026-06-07 08:59'
-updated_date: '2026-06-07 11:24'
+updated_date: '2026-06-07 12:19'
 labels:
   - Backend
   - Auth
@@ -22,7 +22,6 @@ references:
     https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium
 ordinal: 5500

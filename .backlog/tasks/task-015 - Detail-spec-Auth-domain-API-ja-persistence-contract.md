@@ -4,7 +4,7 @@ title: 'Detail spec: Auth domain API ja persistence contract'
 status: To Do
 assignee: []
 created_date: '2026-06-07 11:22'
-updated_date: '2026-06-07 12:13'
+updated_date: '2026-06-07 12:19'
 labels:
   - Auth
   - Spec
@@ -14,7 +14,6 @@ dependencies:
   - TASK-013
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
   - .backlog/docs/specs/doc-007 - security-data-classification.md
 priority: medium

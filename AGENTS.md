@@ -34,12 +34,13 @@ You MUST read the overview resource to understand the complete workflow. The inf
 
 This repository is the durable product and delivery record for `agent_company`.
 The product goal, intent, scope, and high-level technology boundaries are defined
-in `.backlog/docs/intent/doc-001 - goal.md`. Operational constraints for agent decisions
-are in `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`.
+in `.backlog/docs/intent/doc-001 - goal.md`. Project boundaries and agent
+decision limits are defined by the accepted ADRs in `.backlog/decisions/`.
 
 The currently accepted high-level ADRs are `.backlog/decisions/decision-001` through
-`.backlog/decisions/decision-008`. Detail-level Auth ADRs numbered 009 through
-011 were intentionally removed from the canonical decision set.
+`.backlog/decisions/decision-009`. Former detail-level Auth ADRs numbered 009
+through 011 were intentionally removed from the canonical decision set before
+the current project-level `decision-009` was added.
 
 The planned application is a monorepo with these application areas:
 
@@ -73,8 +74,7 @@ user-approved ADR.
 Before planning or implementation, read the minimum relevant context:
 
 - Project goal: `.backlog/docs/intent/doc-001 - goal.md`
-- Agent constraints: `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`
-- Accepted high-level ADRs: `.backlog/decisions/decision-001` through `.backlog/decisions/decision-008`
+- Accepted high-level ADRs: `.backlog/decisions/decision-001` through `.backlog/decisions/decision-009`
 - Relevant Backlog task and linked specs or ADRs
 - Existing code, tests, commands, and local conventions once application code
   exists
@@ -83,7 +83,7 @@ Before planning or implementation, read the minimum relevant context:
 
 Stop and ask for a decision or record `Blocked` when a change would:
 
-- conflict with the project goal, governance, a linked spec, or an accepted ADR
+- conflict with the project goal, a linked spec, or an accepted ADR
 - add a new AWS service, library, runtime, top-level application directory, public
   API contract, authentication model, or production data source
 - require production deploy, production data, credentials, secrets, cloud

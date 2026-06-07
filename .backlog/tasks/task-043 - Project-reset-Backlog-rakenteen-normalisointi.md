@@ -4,27 +4,17 @@ title: 'Project reset: Backlog-rakenteen normalisointi'
 status: Done
 assignee: []
 created_date: '2026-06-07 11:28'
-updated_date: '2026-06-07 11:59'
+updated_date: '2026-06-07 12:22'
 labels:
   - Project
-  - Governance
   - Backlog
 milestone: m-2
 dependencies: []
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
-  - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 modified_files:
   - AGENTS.md
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
-  - .backlog/docs/specs/doc-005 - project-structure-and-quality-gates.md
-  - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
-  - .backlog/docs/specs/doc-007 - security-data-classification.md
-  - .backlog/docs/specs/doc-008 - config-secrets-catalog.md
-  - .backlog/docs/specs/doc-009 - aws-runtime-operations.md
-  - .backlog/docs/specs/doc-010 - external-data-source-compliance.md
   - .backlog/decisions
   - .backlog/milestones
   - .backlog/tasks
@@ -41,29 +31,29 @@ Resetoi projektin Backlog-rakenne käyttäjän pyytämään malliin.
 
 - Poista epäkanoniset decision-tiedostot.
 - Arkistoi vanhat Auth detail-päätöstehtävät.
-- Päivitä intent-, governance-, context map- ja guardrail-dokumentit.
+- Päivitä intent ja kanoniset ADR:t.
 - Luo Agent detail specifications -milestone ja bounded context -milestonet tehtävineen.
 - Päivitä aktiiviset Auth use case -taskit käyttämään uutta Auth detail-spec -riippuvuutta.
 
 ### MIKSI
-Käyttäjä määrittää GOAL/INTENT/WHY/WHAT-tason. Agentit määrittävät HOW-tason detail-spesifikaatioissa ja toteutustehtävissä ilman etukäteen lukittuja detail-ADR:iä.
+Käyttäjä määrittää GOAL/INTENT/WHY/WHAT-tason. ADR:t määrittävät projektin pysyvät rajat. Agentit määrittävät HOW-tason detail-spesifikaatioissa ja toteutustehtävissä ilman etukäteen lukittuja detail-ADR:iä.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
 - [x] #1 GIVEN reset valmistuu, WHEN Backlog tarkistetaan, THEN yksikään aktiivinen task ei viittaa poistettaviin Auth decision -tiedostoihin.
 - [x] #2 GIVEN reset valmistuu, WHEN milestone-lista tarkistetaan, THEN Project reset, Agent detail specifications ja jokainen bounded context -milestone ovat olemassa.
-- [x] #3 GIVEN reset valmistuu, WHEN dokumentit tarkistetaan, THEN goal, governance ja context map erottavat käyttäjän WHAT/WHY-tason agenttien HOW-tasosta.
-- [x] #4 GIVEN reset valmistuu, WHEN decision-hakemisto tarkistetaan, THEN epäkanoniset ADR-tiedostot on poistettu.
-- [x] #5 GIVEN reset valmistuu, WHEN validointi kirjataan, THEN puuttuvat sovelluskoodin tarkistuskomennot on dokumentoitu rajoituksena.
+- [x] #3 GIVEN reset valmistuu, WHEN decision-hakemisto tarkistetaan, THEN epäkanoniset ADR-tiedostot on poistettu.
+- [x] #4 GIVEN reset valmistuu, WHEN validointi kirjataan, THEN puuttuvat sovelluskoodin tarkistuskomennot on dokumentoitu rajoituksena.
+- [x] #5 GIVEN reset valmistuu, WHEN dokumentit tarkistetaan, THEN intent ja ADR:t erottavat käyttäjän WHAT/WHY-tason agenttien HOW-tasosta.
 <!-- AC:END -->
 
 ## Final Summary
 
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Backlog-rakenne resetoitiin käyttäjän pyytämään malliin korjatulla ADR-rajauksella. Korkean tason ADR:t `decision-001` - `decision-008` säilyvät hyväksyttyinä päätöksinä. Detail-tason Auth-päätökset 009-011 poistettiin kanonisesta päätöshistoriasta, vanhat Auth detail-päätöstehtävät arkistoitiin ja neutraloitiin, Auth use case -taskit päivitettiin riippumaan uudesta `TASK-015` Auth detail-specistä, ja uudet detail-spec- sekä bounded context -milestonet/taskit luotiin.
+Backlog-rakenne resetoitiin käyttäjän pyytämään malliin korjatulla ADR-rajauksella. Korkean tason ADR:t `decision-001` - `decision-009` säilyvät hyväksyttyinä päätöksinä. Former detail-level Auth ADRs 009-011 poistettiin kanonisesta päätöshistoriasta, vanhat Auth detail-päätöstehtävät arkistoitiin ja neutraloitiin, Auth use case -taskit päivitettiin riippumaan uudesta `TASK-015` Auth detail-specistä, ja uudet detail-spec- sekä bounded context -milestonet/taskit luotiin.
 
-Validointi: `milestone_list` näyttää 8 milestonea (`Auth`, `Project reset`, `Agent detail specifications`, `Notifications`, `Companies and watchlist`, `Marketdata`, `Comments`, `Scheduling`). `find .backlog/decisions -maxdepth 1 -type f` näyttää vain `decision-001` - `decision-008`. Stale Auth-detail-decision -viitehaku ei palauta osumia aktiivisista dokumenteista tai taskeista. `document_list` näyttää kanoniset `intent/doc-001 - goal.md` ja governance-polut.
+Validointi: `milestone_list` näyttää 8 milestonea (`Auth`, `Project reset`, `Agent detail specifications`, `Notifications`, `Companies and watchlist`, `Marketdata`, `Comments`, `Scheduling`). `find .backlog/decisions -maxdepth 1 -type f` näyttää kanoniset project ADR:t. Stale Auth-detail-decision -viitehaku ei palauta osumia aktiivisista dokumenteista tai taskeista.
 
 Rajoitus: sovelluskoodia ei ole vielä (`backend/`, `frontend/`, `infra/` puuttuvat), joten backend/frontend/infra-lint-, typecheck-, build- tai testikomentoja ei voitu ajaa.
 <!-- SECTION:FINAL_SUMMARY:END -->

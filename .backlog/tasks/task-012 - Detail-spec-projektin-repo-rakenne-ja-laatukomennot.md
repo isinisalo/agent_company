@@ -4,6 +4,7 @@ title: 'Detail spec: projektin repo-rakenne ja laatukomennot'
 status: To Do
 assignee: []
 created_date: '2026-06-07 11:22'
+updated_date: '2026-06-07 12:19'
 labels:
   - Project
   - Spec
@@ -11,7 +12,6 @@ milestone: m-3
 dependencies: []
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-005 - project-structure-and-quality-gates.md
 priority: medium
 ordinal: 1000

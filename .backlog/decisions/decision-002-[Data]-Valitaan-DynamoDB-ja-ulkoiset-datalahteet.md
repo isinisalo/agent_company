@@ -17,5 +17,4 @@ Ensisijaiseksi tietokannaksi valitaan Amazon DynamoDB. Ulkoisiksi datalähteiksi
 - Ulkoiset datalähteet kapseloidaan adaptereihin, eivätkä lähdekohtaiset mallit saa vuotaa API-sopimuksiin tai domainiin.
 - Tallennettuun ulkoiseen dataan liitetään lähde ja hakuajankohta.
 - API-avaimet säilytetään Secrets Managerissa, ja integraatioissa määritellään aikakatkaisut, kutsurajat ja virheenkäsittely.
-- Ulkoiset lähteet ovat testissä `mock-only`, tuotannossa käytetään live palveluita.
-
+- Ulkoiset lähteet ovat testissä `mock-only`; tuotannossa käytetään live dataa ja se vaatii kutsurajat, retentionin ja credential-käsittelyn.

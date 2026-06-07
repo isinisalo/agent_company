@@ -4,7 +4,7 @@ title: 'Detail spec: Scheduling event schedule retry and run-state contract'
 status: To Do
 assignee: []
 created_date: '2026-06-07 11:23'
-updated_date: '2026-06-07 12:13'
+updated_date: '2026-06-07 12:19'
 labels:
   - Scheduling
   - Spec
@@ -16,7 +16,6 @@ dependencies:
   - TASK-019
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
   - .backlog/docs/specs/doc-009 - aws-runtime-operations.md
   - .backlog/docs/specs/doc-010 - external-data-source-compliance.md

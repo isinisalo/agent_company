@@ -13,7 +13,6 @@ milestone: m-3
 dependencies: []
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-007 - security-data-classification.md
   - .backlog/docs/specs/doc-008 - config-secrets-catalog.md
   - .backlog/docs/specs/doc-009 - aws-runtime-operations.md

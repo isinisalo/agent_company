@@ -4,7 +4,7 @@ title: 'Detail spec: Notifications messaging and delivery contract'
 status: To Do
 assignee: []
 created_date: '2026-06-07 11:22'
-updated_date: '2026-06-07 12:13'
+updated_date: '2026-06-07 12:19'
 labels:
   - Notifications
   - Spec
@@ -13,7 +13,6 @@ milestone: m-3
 dependencies: []
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium
 ordinal: 2100

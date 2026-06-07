@@ -3,6 +3,7 @@ id: doc-009
 title: aws-runtime-operations
 type: specification
 created_date: '2026-06-07 10:54'
+updated_date: '2026-06-07 11:21'
 tags:
   - specs
   - aws
@@ -13,97 +14,44 @@ tags:
 
 ## Tarkoitus
 
-Tämä speksi määrittää AWS runtime-, deploy-, rollback-, smoke test-, lokitus- ja hälytysrajat agenteille. Käytä tätä aina, kun muutos koskee `infra/`-hakemistoa, Lambda-ajomallia, API Gatewaytä, CloudFrontia, EventBridgeä, DynamoDB:tä, IAM:ia, Parameter Storea, Secrets Manageria tai deployta.
+Tämä speksi määrittää AWS runtime-, deploy- ja operointirajat. Se ei määritä lopullisia SAM-resursseja, IAM-policyjä, hälytyksiä tai deploy-komentoja ennen detail-spec- tai infra-tehtävää.
 
-## Infrastructure source
+## Runtime boundaries
 
-AWS-infrastruktuurin lähde on versionhallittu AWS SAM -template `infra/`-hakemistossa. Pysyviä konsolimuutoksia ei saa käyttää ratkaisuna.
+AWS-infrastruktuurin lähde on versionhallittu `infra/`-alue. Pysyviä konsolimuutoksia ei käytetä ratkaisuna.
 
-Ympäristöt ovat `dev`, `test` ja `prod`. Koodi ja template eivät saa kovakoodata tiliä, aluetta, ympäristöä, ARNia, salaisuutta tai tuotantoresurssin nimeä.
+Julkinen selainkäyttöliittymä julkaistaan CloudFrontin kautta. Julkinen HTTP API kulkee API Gatewayn kautta Lambda-funktioille. Ajastukset ja tausta-ajot toteutetaan hyväksytyn AWS serverless -rajan sisällä.
 
-Resurssinimien oletusmuoto on:
-
-```text
-agent-company-<env>-<context>-<purpose>
-```
-
-Parameter Store -polut ja Secrets Manager -nimet määritellään `config-secrets-catalog`-speksissä.
+Lambda-funktiot ovat tilattomia. Pysyvä tila kuuluu hyväksyttyyn tietovarastoon, ei prosessin muistiin, `/tmp`-hakemistoon tai globaaleihin muuttujiin.
 
 ## Deploy rules
 
-Deploy on sallittu vain, kun Backlog root task tai deployment task määrittää ympäristön, komennot, branchin tai commitin, tarvittavat oikeudet ja smoke testin.
+Deploy on sallittu vain tehtävässä, jossa on eksplisiittinen deploy-scope, target-ympäristö, tarvittavat oikeudet, validointikomennot ja smoke test -raja.
 
-Oletusdeploy-komennot ovat käytettävissä vasta, kun `infra/` sisältää SAM-konfiguraation:
+Tuotantodeploy vaatii erillisen hyväksynnän. Agentti ei päättele tuotantodeployta yleisestä toteutuspyynnöstä.
 
-```text
-sam validate
-sam build
-sam deploy --config-env <env>
-```
+Jos target, oikeudet, komennot tai rollback-raja puuttuvat, merkitse deploy-osuus `Blocked` ja jatka vain turvallisesti paikalliseen toteutukseen.
 
-Jos SAM-konfiguraatiota, target-ympäristöä tai oikeuksia ei ole, DevOps-agentti kirjaa `Blocked` ja nimeää yhden puuttuvan inputin.
+## Operations rules
 
-Tuotantodeploy vaatii erillisen hyväksynnän. Agentti ei saa päätellä tuotantodeployta tehtävän yleisestä toteutuspyynnöstä.
+Runtime-lokit ja metriikat eivät saa sisältää PII:tä, salaisuuksia, credentialeja, tokeneita, password hasheja, token-digestejä, API-avaimia tai ulkoisen palvelun raw credentialeja.
 
-## Rollback rules
+IAM-oikeudet toteutetaan least privilege -periaatteella. Laaja wildcard vaatii perustelun ja käyttäjän hyväksynnän, jos vaikutus on pysyvä tai tuotantoon ulottuva.
 
-Jokaisella deployattavalla muutoksella pitää olla rollback-kuvaus ennen test- tai prod-deployta. Vähimmäisrollback on:
-
-- tunnista edellinen toimiva commit tai julkaistu artefakti
-- palauta SAM-stack edelliseen templateen ja konfiguraatioon
-- peruuta tai sammuta uusi EventBridge-sääntö, jos muutos liittyy ajastukseen
-- poista uusi julkinen endpoint tai feature flagaa se pois, jos API-käyttö on riskialtis
-- älä tee datamigraation rollbackia ilman erillistä datasuunnitelmaa
-
-DynamoDB-avainten, indeksien tai datan migraation rollback vaatii erillisen päätöksen.
-
-## Smoke tests
-
-Deployn smoke test ei saa käyttää tuotantosalaisuuksia eikä lokittaa käyttäjädataa. Smoke testin pitää tarkistaa vain tehtävän kannalta kriittinen käyttäytyminen.
-
-Vähimmäissmoke test test-ympäristössä:
-
-- API health tai sovittu kevyt endpoint vastaa
-- autentikoitu endpoint hylkää puuttuvan tai virheellisen tokenin
-- uusi endpoint palauttaa odotetun statuskoodin mock- tai testidatalla
-- ajastettu worker voidaan käynnistää testitapahtumalla ilman tuotantokeruuta
-
-## Observability
-
-Lokien tulee olla rakenteisia. Vähimmäiskentät ovat request id tai correlation id, environment, bounded context, use case, result ja error class.
-
-Älä lokita PII:tä, salaisuuksia, API-avaimia, tokeneita, password hasheja, token digestejä, ulkoisten palvelujen raw credential -arvoja tai sisäisiä avainmateriaaleja.
-
-Lisää metriikka tai hälytys, kun muutos koskee:
-
-- kirjautumista tai auth-hylkäyksiä
-- Lambda-timeoutteja
-- DynamoDB conditional failure -tilanteita
-- ulkoisen API:n timeoutteja tai rate limit -virheitä
-- EventBridge-tausta-ajojen epäonnistumisia
-- DLQ- tai uudelleenajopolkuja
-
-## IAM
-
-IAM toteutetaan least privilege -periaatteella. Jokaisen Lambda-funktion tai pienen funktioryhmän rooli sallii vain tarvittavat actionit rajattuihin resursseihin.
-
-Wildcard on sallittu vain, jos AWS-palvelu ei tue resurssirajausta kyseiselle actionille. Syy dokumentoidaan templateen tai ADR:ään.
-
-CI/CD-rooli, runtime-rooli ja paikalliskehityksen oikeudet pidetään erillään.
+Ulkoisiin API-lähteisiin kohdistuvat kutsut tarvitsevat timeoutin, virherajan ja kutsurajoja kunnioittavan suunnitelman ennen tuotantokäyttöä.
 
 ## Stop rules
 
-Pysähdy ja pyydä päätös, jos:
+Pysähdy, jos muutos vaatii uuden AWS-palvelun, tuotantoresurssin luomisen, poistamisen, migraation tai tuotantodeployn.
 
-- tehtävä vaatii uutta AWS-palvelua
-- deploy-target tai oikeudet puuttuvat
-- rollbackia ei voi kuvata turvallisesti
-- muutos koskee DynamoDB-avaimia, indeksejä tai tuotantodataa
-- IAM vaatisi laajaa wildcardia
-- tuotantoresurssin luonti, poisto tai migraatio olisi tarpeen
+Pysähdy, jos rollbackia ei voi kuvata turvallisesti.
+
+Pysähdy, jos IAM tarvitsee laajaa wildcardia tai usean contextin oikeuksia.
 
 ## Acceptance
 
-- Agentti osaa erottaa infra-suunnittelun ja deploy-suorituksen.
-- Agentti ei deployaa ilman targettia, oikeuksia, komentoja ja smoke testia.
-- Agentti kirjaa deploy-blockerin, jos jokin prerequisite puuttuu.
+Agentti erottaa infrastruktuurin suunnittelun, paikallisen toteutuksen ja deploy-suorituksen.
+
+Agentti ei deployaa ilman targettia, oikeuksia, komentoja, rollback-rajaa ja smoke testia.
+
+Agentti kirjaa operointiriskit ja validointirajat taskin final summaryyn.

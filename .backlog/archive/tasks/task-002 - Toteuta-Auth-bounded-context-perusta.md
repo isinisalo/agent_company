@@ -11,7 +11,6 @@ labels:
 milestone: m-1
 dependencies: []
 references:
-  - .backlog/decisions/*.md
   - .backlog/docs/intent/goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
 priority: medium

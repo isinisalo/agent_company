@@ -3,36 +3,68 @@ id: doc-001
 title: Projektin tavoite
 type: other
 created_date: '2026-06-06 07:19'
+updated_date: '2026-06-07 11:19'
 tags:
   - intent
   - goal
 ---
 # Projektin tavoite
 
-## Miksi projekti on olemassa
+## GOAL
 
-Projekti on olemassa, jotta suomalaisiin yrityksiin liittyvää sijoittaja- ja yritystietoa voidaan seurata keskitetysti yhdestä palvelusta. Käyttäjän ei tarvitse hakea yritysten perustietoja, markkinadataa, uutisia ja sijoittajakeskusteluja erillisistä lähteistä, vaan järjestelmä kokoaa seurattavien yritysten olennaisen tiedon samaan käyttöliittymään.
+Rakenna palvelu, jossa suomalaisiin yrityksiin liittyvä seuranta-, markkina-, perustieto- ja keskusteluaineisto näkyy keskitetysti yhdessä selainkäyttöliittymässä.
 
-Palvelun ydin on seurantalista yrityksistä, joihin liittyvää tietoa järjestelmä kerää, tallentaa ja päivittää. Rekisteröityneet ja autentikoidut käyttäjät voivat tarkastella kerättyä tietoa, ja ylläpitäjä voi hallita seurattavia yrityksiä sekä niiden asetuksia. Tavoitteena on tehdä tiedonkeruusta toistettavaa, jäljitettävää ja automatisoitavaa sen sijaan, että käyttäjät joutuvat tekemään saman työn käsin.
+Palvelun ydin on seurattavien yritysten lista. Järjestelmä kerää, tallentaa ja näyttää yrityksiin liittyvää tietoa niin, että käyttäjän ei tarvitse hakea samaa tietoa käsin erillisistä lähteistä.
 
-## Tavoiteltu lopputila
+## INTENT
 
-Valmiissa järjestelmässä käyttäjä kirjautuu selainkäyttöliittymään ja näkee seurattavat yritykset, niiden perustiedot, markkinadataa, uutisia ja yrityksiin liittyviä keskusteluja. Ylläpitäjä voi lisätä, muokata ja poistaa seurattavia yrityksiä sekä määrittää, mitä tietoa yrityksestä kerätään. Tavallinen käyttäjä voi tarkastella kerättyä tietoa roolinsa sallimissa rajoissa.
+Käyttäjä määrittää projektin tavoitteen, rajaukset, hyväksytyt teknologiset päälinjat ja prioriteetin. Agentit määrittävät toteutuksen HOW-tason yksityiskohdat Backlog-tehtävissä ja detail-spesifikaatioissa näiden rajojen sisällä.
 
-Backend tarjoaa API:n, jonka kautta frontend käyttää tallennettua dataa ja käynnistää hyväksytyt käyttötapaukset. Markkinadata haetaan EODHD:stä, keskusteluaineisto Inderes Forumista ja yritysten perustietoja PRH:n YTJ Open Data API v3:sta. Ulkoiset lähteet kapseloidaan adaptereihin, jotta lähdekohtaiset mallit, virheet ja kutsukäytännöt eivät vuoda domainiin tai julkisiin API-sopimuksiin.
+Yksityiskohtainen domain-, API-, data-, infra-, operointi- tai testausratkaisu ei kuulu tähän dokumenttiin. Jos agentti tarvitsee detail-ratkaisun, se toteuttaa tai päivittää sitä koskevan tehtävän `Agent detail specifications` -milestonessa.
 
-Järjestelmä toimii AWS serverless -ympäristössä. Julkinen selainkäyttöliittymä julkaistaan CloudFrontin kautta, HTTP-liikenne kulkee API Gatewayn kautta Lambda-funktioille, tiedot tallennetaan DynamoDB:hen, sisäiset tapahtumat ja ajastukset hoidetaan EventBridgellä, konfiguraatio säilytetään Parameter Storessa ja salaisuudet Secrets Managerissa. Backend toteutetaan Python/FastAPI-pohjaisena ports and adapters -arkkitehtuurina, frontend React/Vite/Tailwind/shadcn-pohjaisena SPA-sovelluksena ja API-autentikointi JWT bearer -tokenien avulla.
+## WHY
 
-Tiedonkeruu voidaan ajastaa, jotta yrityksiin liittyvät keskustelut ja markkinadata pysyvät ajan tasalla ilman manuaalista käynnistystä. Auth-, notifications-, marketdata-, comments- ja scheduling-kyvykkyydet muodostavat yhdessä kokonaisuuden, jossa käyttäjähallinta, viestit, tiedonkeruu, keskustelujen synkronointi ja ajastettu tausta-ajo tukevat samaa käyttötarkoitusta.
+Palvelun tarkoitus on tehdä yritystiedon seurannasta toistettavaa, jäljitettävää ja automatisoitavaa. Rekisteröitynyt käyttäjä voi tarkastella kerättyä tietoa roolinsa sallimissa rajoissa. Ylläpitäjä voi hallita seurattavia yrityksiä ja sitä, mitä tietoa niistä kerätään.
 
-## Rajaukset
+## WHAT
 
-Projekti ei tuota sijoitusneuvontaa, osto- tai myyntisuosituksia, automaattisia kaupankäyntipäätöksiä eikä kaupankäyntitoiminnallisuutta. Järjestelmä kokoaa ja esittää tietoa, mutta vastuu tiedon tulkinnasta jää käyttäjälle.
+Järjestelmän tulee sisältää nämä bounded contextit:
 
-Projekti ei ole yleinen CRM-, taloushallinto-, analytiikka- tai yritysrekisterijärjestelmä. Yritystiedot mallinnetaan vain siinä laajuudessa kuin seurattavien yritysten hallinta, markkinadata, keskusteluaineisto ja niihin liittyvät käyttötapaukset vaativat.
+- `Auth`: käyttäjän rekisteröinti, kirjautuminen, sähköpostivahvistus, salasanan resetointi ja käyttäjähallinta.
+- `Notifications`: käyttäjälle lähetettävät viestit, toimituspyynnöt ja toimituksen tila.
+- `Companies and watchlist`: seurattavat yritykset, yritysten perustietojen hallinta ja keruuasetukset.
+- `Marketdata`: seurattavien yritysten markkinadatan haku, tallennus ja näyttäminen.
+- `Comments`: yrityksiin liittyvän keskusteluaineiston haku, tallennus ja näyttäminen.
+- `Scheduling`: ajastetut tausta-ajot, keruiden käynnistys ja ajon tilan seuranta.
 
-Keskustelukeruu ei ole yleinen sosiaalisen median keräin. Alkuvaiheen keskusteluaineisto rajataan hyväksyttyihin lähteisiin, erityisesti Inderes Forumiin, ja tuotantokäyttö edellyttää lähteiden käyttöehtojen, robots-käytäntöjen ja lisenssiehtojen tarkistamista. Sama koskee EODHD:n ja YTJ:n käyttöehtoja, lisenssejä ja lähdemainintavaatimuksia.
+Hyväksytyt korkean tason teknologiarajat ovat:
 
-Alkuvaiheessa järjestelmä ei tavoittele reaaliaikaista streaming-markkinadataa. Markkina- ja keskustelutiedot kerätään käyttötapausten ja ajastusten määrittämällä tavalla, ja mahdollinen reaaliaikaisempi päivitysmalli edellyttää erillistä päätöstä.
+- Monorepon sallitut top-level sovellusalueet ovat `backend/`, `frontend/` ja `infra/`.
+- Backend on Python 3.14 FastAPI Lambda -backend, joka noudattaa ports and adapters -arkkitehtuuria.
+- Frontend on React TypeScript Vite SPA, joka käyttää Tailwind CSS:ää ja shadcn/ui:ta.
+- Infra toteutetaan AWS serverless -mallilla ja AWS SAMilla.
+- Pysyvä sovellusdata tallennetaan DynamoDB:hen.
+- API-autentikointi käyttää JWT bearer -mallia.
+- Paikalliset ulkoisten REST API:en mockit toteutetaan Mockoonilla.
+- CI/CD toteutetaan GitHub Actionsilla.
+- Ulkoiset lähteet ovat EODHD, PRH:n YTJ Open Data API v3 ja Inderes Forum, kun niiden käyttöehdot ja tuotantokäytön rajat on hyväksytty.
 
-Domainia ei sidota AWS:n, HTTP:n, DynamoDB:n, FastAPI:n, Pydanticin, JWT-kirjaston tai ulkoisten API:en malleihin. Teknologiakohtaiset yksityiskohdat kuuluvat adaptereihin, composition rooteihin ja infrastruktuurikerrokseen hyväksyttyjen arkkitehtuuripäätösten mukaisesti.
+## OUT OF SCOPE
+
+Järjestelmä ei tuota sijoitusneuvontaa, osto- tai myyntisuosituksia, automaattisia kaupankäyntipäätöksiä eikä kaupankäyntitoiminnallisuutta.
+
+Järjestelmä ei ole yleinen CRM-, taloushallinto-, analytiikka- tai yritysrekisterijärjestelmä. Yritystiedot mallinnetaan vain seurannan, keruun ja näyttämisen tarpeisiin.
+
+Keskustelukeruu ei ole yleinen sosiaalisen median keräin. Alkuvaiheen keskustelulähde on Inderes Forum vain hyväksytyn compliance-rajauksen jälkeen.
+
+Reaaliaikainen streaming-markkinadata ei kuulu alkuvaiheen tavoitteeseen.
+
+## HIGH-LEVEL CONSTRAINTS
+
+Domain ei saa riippua AWS:n, HTTP:n, DynamoDB:n, FastAPI:n, Pydanticin, JWT-kirjaston tai ulkoisten API:en raakamalleista.
+
+Salaisuuksia, credentialeja, tokeneita, password hasheja, token-digestejä, API-avaimia tai PII:tä ei saa palauttaa API-vastauksissa, julkaista eventeissä, tallentaa fixtureihin tai lokittaa.
+
+Tuotantodeploy, tuotantodata, oikeat credentialit, cloud-oikeudet ja ulkoisten lähteiden tuotantokäyttö vaativat erillisen hyväksytyn tehtävän ja dokumentoidun evidenssin.
+
+Nykyinen `.backlog/decisions` ei sisällä hyväksyttyjä ADR:iä resetin jälkeen. Uusi ADR luodaan vain, kun käyttäjä hyväksyy korkean tason päätöksen, jota agentti ei saa ratkaista detail-spesifikaationa.

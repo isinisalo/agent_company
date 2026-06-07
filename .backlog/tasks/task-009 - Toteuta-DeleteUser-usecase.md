@@ -4,24 +4,21 @@ title: 'Auth: Käyttäjän poisto'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:20'
-updated_date: '2026-06-07 10:57'
+updated_date: '2026-06-07 11:24'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-012
-  - TASK-013
-  - TASK-014
+  - TASK-015
 references:
-  - .backlog/decisions/*.md
+  - >-
+    .backlog/tasks/task-015 -
+    Detail-spec-Auth-domain-API-ja-persistence-contract.md
+documentation:
   - .backlog/docs/intent/goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
-  - .backlog/decisions/decision-009 - Backend-Valitaan-Auth-domain-malli.md
-  - >-
-    .backlog/decisions/decision-010 -
-    Data-Valitaan-Auth-DynamoDB-tietokantarakenne.md
-  - .backlog/decisions/decision-011 - Backend-Valitaan-Auth-REST-API-sopimus.md
+  - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium
 ordinal: 8000
 ---
@@ -30,10 +27,10 @@ ordinal: 8000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin admin-toiminto käyttäjän poistamiseen hyväksyttyjen Auth-päätösten mukaisesti.
+Toteuta Auth-kontekstin admin-toiminto käyttäjän poistamiseen Auth detail-specin ja tämän tehtävän acceptance criteria -kohtien mukaisesti.
 
 - Vain hallintakäyttäjä voi poistaa Auth-käyttäjän.
-- Poisto kohdistuu käyttäjään hyväksytyn rajapintasopimuksen mukaisella tunnisteella.
+- Poisto kohdistuu käyttäjään Auth detail-specissä määritetyllä tunnisteella.
 - Poisto on idempotentti myös silloin, kun käyttäjää ei löydy.
 - Poiston scope rajataan Auth bounded contextin käyttäjä-, credential- ja vahvistustietoihin.
 - Salaisuuksia ei palauteta, julkaista tai lokiteta.

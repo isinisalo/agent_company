@@ -4,24 +4,21 @@ title: 'Auth: Käyttäjien listaus'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:20'
-updated_date: '2026-06-07 10:57'
+updated_date: '2026-06-07 11:25'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-012
-  - TASK-013
-  - TASK-014
+  - TASK-015
 references:
-  - .backlog/decisions/*.md
+  - >-
+    .backlog/tasks/task-015 -
+    Detail-spec-Auth-domain-API-ja-persistence-contract.md
+documentation:
   - .backlog/docs/intent/goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
-  - .backlog/decisions/decision-009 - Backend-Valitaan-Auth-domain-malli.md
-  - >-
-    .backlog/decisions/decision-010 -
-    Data-Valitaan-Auth-DynamoDB-tietokantarakenne.md
-  - .backlog/decisions/decision-011 - Backend-Valitaan-Auth-REST-API-sopimus.md
+  - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium
 ordinal: 9000
 ---
@@ -30,7 +27,7 @@ ordinal: 9000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin admin-listaus käyttäjäsummaryille hyväksyttyjen Auth-päätösten mukaisesti.
+Toteuta Auth-kontekstin admin-listaus käyttäjäsummaryille Auth detail-specin ja tämän tehtävän acceptance criteria -kohtien mukaisesti.
 
 - Vain hallintakäyttäjä voi listata käyttäjiä.
 - Listaus palauttaa rajatun ja sivutettavan käyttäjäsummaryn.
@@ -48,9 +45,11 @@ Admin-käyttäjän pitää pystyä tarkastelemaan käyttäjiä hallintaa varten 
 - [ ] #2 GIVEN käyttäjiä ei ole ja kutsuja on hallintakäyttäjä, WHEN käyttäjiä listataan, THEN toiminto palauttaa tyhjän listan.
 - [ ] #3 GIVEN kutsuja ei ole hallintakäyttäjä, WHEN käyttäjiä yritetään listata, THEN toiminto hylätään ennen käyttäjien hakua.
 - [ ] #4 GIVEN käyttäjäsummary muodostetaan, WHEN listauksen tulos palautetaan, THEN yksikään käyttäjäsummary ei sisällä credential-, salasana- tai vahvistussalaisuuksiin liittyviä tietoja.
-- [ ] #5 GIVEN sivutuksen koko puuttuu tai ylittää hyväksytyn ylärajan, WHEN listaus suoritetaan, THEN käytetään hyväksytyissä Auth-päätöksissä määritettyä turvallista oletusta tai enimmäiskokoa ja ilmoitetaan, jos lisää tuloksia on saatavilla.
+- [ ] #5 GIVEN sivutuksen koko puuttuu tai ylittää hyväksytyn ylärajan, WHEN listaus suoritetaan, THEN käytetään Auth detail-specissä määritettyä turvallista oletusta tai enimmäiskokoa ja ilmoitetaan, jos lisää tuloksia on saatavilla.
 - [ ] #6 GIVEN listaus onnistuu, WHEN vastaus ja lokit muodostetaan, THEN credential- tai vahvistussalaisuuksia ei palauteta, julkaista tai lokiteta.
 <!-- AC:END -->
+
+
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

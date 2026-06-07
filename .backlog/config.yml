@@ -1,8 +1,27 @@
 project_name: "agent_company"
 default_status: "To Do"
-statuses: ["To Do", "Plan", "Review", "Test", "Implement", "QA", "Deploy", "Blocked", "In Progress", "Done"]
+statuses:
+  [
+    "To Do",
+    "Plan",
+    "Review",
+    "Test",
+    "Implement",
+    "QA",
+    "Deploy",
+    "Blocked",
+    "In Progress",
+    "Done",
+  ]
 labels: []
-definition_of_done: ["Acceptance criteria on testattu tehtävän scopea vasten", "Relevantit lint typecheck build ja testikomennot on ajettu tai rajaus on kirjattu", "Salaisuuksia tokeneita credentialeja ja PII-tietoja ei palauteta lokiteta tai commitoida", "Julkiset API data infra ja operointisopimukset on päivitetty tarvittaessa", "Final Summary kuvaa toteutuksen tuloksen validoinnin ja rajaukset"]
+definition_of_done:
+  [
+    "Acceptance criteria on testattu tehtävän scopea vasten",
+    "Relevantit lint typecheck build ja testikomennot on ajettu tai rajaus on kirjattu",
+    "Salaisuuksia tokeneita credentialeja ja PII-tietoja ei palauteta lokiteta tai commitoida",
+    "Julkiset API data infra ja operointisopimukset on päivitetty tarvittaessa",
+    "Final Summary kuvaa toteutuksen tuloksen validoinnin ja rajaukset",
+  ]
 date_format: yyyy-mm-dd
 max_column_width: 20
 default_editor: "code --wait"

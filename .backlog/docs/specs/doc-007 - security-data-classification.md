@@ -3,6 +3,7 @@ id: doc-007
 title: security-data-classification
 type: specification
 created_date: '2026-06-07 10:53'
+updated_date: '2026-06-07 11:20'
 tags:
   - specs
   - security
@@ -13,63 +14,42 @@ tags:
 
 ## Tarkoitus
 
-Tämä speksi määrittää dataluokat, lokitusrajat, säilytys- ja poistoperiaatteet sekä agenttien pysähtymissäännöt. Käytä tätä kaikkien Auth-, API-, integraatio-, lokitus- ja tietomallimuutosten yhteydessä.
+Tämä speksi määrittää dataluokkien ja vuotamattomuuden vähimmäisrajat. Se ei päätä context-kohtaisia retention-, audit- tai poistopolitiikkoja; ne kuuluvat detail-spec-tehtäviin tai käyttäjän päätökseen.
 
 ## Data classes
 
-### Public product data
+`Public product data` on ei-salaista sovellus- ja käyttöliittymäsisältöä, jota saa commitoida, jos se ei sisällä PII:tä, credentialeja, sisäisiä resursseja tai lisenssirajoitettua raakadataa.
 
-Julkista product dataa ovat käyttöliittymän julkiset tekstit, staattiset assetit ja ei-salaiset sovellusasetukset. Tätä saa commitoida repositoryyn, jos sisältö ei sisällä PII:tä, credentialeja, sisäisiä resursseja tai lisenssiehtojen alaista raakadataa.
+`External source data` on EODHD-, YTJ- tai Inderes-lähteestä peräisin olevaa dataa. Tallennettuun ulkoiseen dataan liitetään lähde ja hakuajankohta, kun dataa saa tuotantokäyttää.
 
-### External source data
+`User PII` sisältää vähintään sähköpostin, nimen, käyttäjätunnuksen, IP-osoitteen ja tunnistettavan käyttäjäkontekstin. PII:tä tallennetaan vain hyväksytyn käyttötapauksen tarpeeseen.
 
-Ulkoisen lähteen dataa ovat EODHD-, YTJ- ja Inderes-lähteistä kerätyt tiedot. Tallennettuun dataan liitetään lähde, hakuajankohta ja lähteen oma tunniste, kun sellainen on saatavilla.
+`Credentials and secrets` sisältää plaintext-salasanat, password hashit, tokenit, token-digestit, JWT:t, allekirjoitusavaimet, API-avaimet, private keyt ja ulkoisten palvelujen tunnukset.
 
-Ulkoista dataa ei saa tuotantokerätä ennen kuin lähteen käyttöehdot, lisenssi, robots-käytäntö, kutsurajat ja lähdemainintavaatimus on dokumentoitu.
+`Operational telemetry` sisältää lokit, metriikat ja trace-tiedot. Telemetria saa sisältää käyttötapauksen, tuloksen, error-luokan ja korrelaatiotunnisteen, mutta ei salaisuuksia tai credentialeja.
 
-### User PII
+## Non-disclosure rules
 
-PII:tä ovat vähintään sähköposti, nimi, käyttäjätunnus, IP-osoite, requestiin liittyvä tunnistettava käyttäjäkonteksti ja admin-toimien kohteena oleva käyttäjä.
+Credentialeja ja salaisuuksia ei saa commitoida, palauttaa API-vastauksessa, julkaista eventissä, tallentaa fixtureen tai lokittaa.
 
-PII:tä saa tallentaa vain hyväksytyn käyttötapauksen tarvitsemassa laajuudessa. PII:tä ei saa lisätä lokiin, fixtureihin, virhevastauksiin tai domain-eventteihin ilman eksplisiittistä tarvetta ja sanitointia.
+PII:tä ei saa lisätä lokiin, fixtureen, virhevastaukseen tai domain-eventtiin ilman eksplisiittistä käyttötapaustarvetta ja sanitointia.
 
-### Credentials and secrets
+Ulkoisen lähteen raw-malli ei saa vuotaa domainiin, frontendille tai julkiseen API-sopimukseen.
 
-Credential- ja secret-luokkaan kuuluvat plaintext-salasanat, password hashit, tokenien plaintext-arvot, token-digestit, JWT:t, JWT-allekirjoitusavaimet, API-avaimet, webhook-salaisuudet, private keyt ja ulkoisten palvelujen tunnukset.
+## Stop rules
 
-Credentialeja ja salaisuuksia ei saa commitoida, palauttaa API-vastauksessa, julkaista eventissä, tallentaa fixtureen tai lokittaa. Testeissä käytetään dummy-arvoja, jotka eivät muistuta oikeita avaimia.
+Pysähdy, jos uuden kentän dataluokka on epäselvä.
 
-### Operational logs and metrics
+Pysähdy, jos muutos tallentaisi uuden PII- tai credential-kentän ilman detail-speciä tai hyväksyttyä tehtävää.
 
-Lokit ja metriikat saavat sisältää request id:n, correlation id:n, bounded contextin, käyttötapauksen, ympäristön, tuloksen ja virheluokan. Lokit eivät saa sisältää salaisuuksia, tokeneita, credentialeja, plaintext-syötteitä tai ulkoisten palvelujen raw credential -arvoja.
+Pysähdy, jos poisto, anonymisointi, audit trail tai retention vaikuttaa useaan bounded contextiin.
 
-## Retention and deletion
-
-Auth-käyttäjän poisto koskee Auth bounded contextin käyttäjä-, credential- ja vahvistustietoja. Se ei määritä muiden bounded contextien poistoa, audit-retentiota tai anonymisointia.
-
-Laajempi cross-context deletion, anonymisointi, audit trailin säilytys ja lakisääteinen retention vaativat erillisen päätöksen ennen tuotantototeutusta.
-
-Kertakäyttöisten vahvistus- ja resetointisalaisuuksien plaintext-arvoa ei säilytetä. Digestillä, expiryllä ja used-tilalla voidaan todentaa käyttö ilman plaintext-arvon tallentamista.
-
-## API and error handling
-
-Käyttäjälle näkyvä virhe ei saa paljastaa sisäistä infrastruktuuria, AWS-resurssinimiä, credentialien olemassaoloa, token-digestin tilaa tai ulkoisen palvelun raakavirhettä.
-
-Auth-kirjautumisen ja salasanan resetoinnin hylkäykset eivät saa paljastaa, onko käyttäjä olemassa, onko sähköposti vahvistettu, onko käyttäjä estetty tai oliko salasana väärä.
-
-## Agent stop rules
-
-Pysähdy ja pyydä päätös, jos:
-
-- datan luokka on epäselvä
-- muutos tallentaisi uuden PII- tai credential-kentän
-- poistokäyttäytyminen vaikuttaa useaan bounded contextiin
-- lokiin, eventtiin tai API-vastaukseen halutaan lisätä PII:tä tai credential-luonteista tietoa
-- tuotantokeruu tarvitsee ulkoisen lähteen käyttöehtoja tai lisenssiehdon tulkintaa
-- muutos voisi tuottaa sijoitusneuvontaa, osto- tai myyntisuosituksia tai automaattisen kaupankäyntipäätöksen
+Pysähdy, jos ratkaisu voisi tuottaa sijoitusneuvontaa, suosituksia tai automaattisia kaupankäyntipäätöksiä.
 
 ## Acceptance
 
-- Agentti pystyy luokittelemaan uuden kentän ennen tallennusta.
-- Agentti pystyy sanomaan, saako kenttä näkyä API-vastauksessa, eventissä, fixtureissä tai lokissa.
-- Agentti pysähtyy cross-context deletion- ja retention-päätöksissä.
+Agentti luokittelee uuden kentän ennen tallennusta tai palauttamista.
+
+Agentti pystyy perustelemaan, saako kenttä näkyä API-vastauksessa, eventissä, fixtureissä tai lokissa.
+
+Agentti kirjaa security- ja data-rajoitukset taskin final summaryyn, kun muutos koskee näitä luokkia.

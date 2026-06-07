@@ -3,6 +3,7 @@ id: doc-006
 title: bounded-context-map-and-glossary
 type: specification
 created_date: '2026-06-07 10:52'
+updated_date: '2026-06-07 11:20'
 tags:
   - specs
   - domain
@@ -13,80 +14,77 @@ tags:
 
 ## Tarkoitus
 
-Tämä speksi määrittää projektin bounded contextit, vastuurajat ja yhteisen sanaston. Agentti käyttää tätä ennen käyttötapaus-, API-, data- tai integraatiosuunnittelua.
+Tämä speksi nimeää projektin bounded contextit ja omistajuusrajat. Se ei määritä contextien sisäistä domain-mallia, API-sopimusta, tietokantarakennetta tai infrastruktuuria. Nämä HOW-yksityiskohdat kuuluvat `Agent detail specifications` -milestonen tehtäviin.
 
 ## Context map
 
 ### Auth
 
-Auth omistaa käyttäjän identiteetin, kirjautumisen, sähköpostivahvistuksen, salasanan resetoinnin, käyttäjän hallinnollisen käyttötilan, roolin ja API-käyttöön tarvittavan principalin muodostamisen.
+Auth omistaa käyttäjäidentiteetin, rekisteröinnin, kirjautumisen, sähköpostivahvistuksen, salasanan resetoinnin, käyttäjän hallinnollisen käyttötilan ja API-käyttöön tarvittavan principalin.
 
-Auth ei omista sijoittaja- tai yritysdataa, ilmoitusten toimituskanavia, ulkoisten lähteiden datankeruuta eikä muiden bounded contextien datapoistoa.
+Auth ei omista ilmoitusten toimituskanavaa, yritysdataa, markkinadataa, keskusteluaineistoa, ajastuksia eikä muiden contextien datapoistoa.
 
 ### Notifications
 
-Notifications omistaa käyttäjälle lähetettävät viestit, viestipohjat, kanavavalinnan ja toimituksen tilan. Auth saa pyytää sähköpostivahvistuksen tai salasanan resetoinnin toimitusta mutta ei saa päättää Notifications-kontekstin toimituspolitiikkaa.
+Notifications omistaa käyttäjälle lähetettävät viestit, viestien renderöinnin, toimituspyynnöt ja toimituksen tilan.
 
-Tuotantolähetys vaatii erillisen viestintäkanava-, lähettäjä-, salaisuus- ja auditointipäätöksen.
+Notifications ei päätä, milloin Auth-, Companies-, Marketdata-, Comments- tai Scheduling-context tarvitsee viestin. Kutsuva context omistaa käyttötapauksen syyn.
 
 ### Companies and watchlist
 
-Companies and watchlist omistaa seurattavat suomalaiset yritykset, käyttäjän tai järjestelmän seurantalistan, yrityksen perustietojen hallinnan ja sen, mitä tietoa yrityksestä kerätään.
+Companies and watchlist omistaa seurattavat suomalaiset yritykset, seurantalistan, yrityksen perustietojen hallinnan ja keruuasetukset.
 
-Tämä context käyttää YTJ-dataa adapterin kautta mutta ei saa vuotaa YTJ:n raakamallia julkiseen API:in tai domainiin.
+Tämä context käyttää YTJ-lähdettä adapterin kautta, kun tuotantokäytön compliance on hyväksytty.
 
 ### Marketdata
 
-Marketdata omistaa seurattavien yritysten markkinadatan haun, tallennuksen, lähdeattribuution, päivityshetket ja datan esittämiseen tarvittavat kyselyt.
+Marketdata omistaa seurattavien yritysten markkinadatan keruun, tallennuksen, lähdeattribuution ja kyselyt.
 
-Marketdata käyttää EODHD:tä adapterin kautta. Se ei tuota sijoitusneuvontaa, kaupankäyntisignaaleja, suosituksia tai automaattisia kaupankäyntipäätöksiä.
+Marketdata ei tuota sijoitusneuvontaa, kaupankäyntisignaaleja, suosituksia tai automaattisia kaupankäyntipäätöksiä.
 
 ### Comments
 
-Comments omistaa hyväksytyistä keskustelulähteistä kerätyn keskusteluaineiston, lähdeattribuution, keruun tilan, deduplikoinnin ja keskusteluaineiston kyselyt.
+Comments omistaa hyväksytyistä keskustelulähteistä kerätyn keskusteluaineiston, deduplikoinnin, tallennuksen, lähdeattribuution ja kyselyt.
 
-Alkuvaiheen lähde on Inderes Forum. Tuotantokeruu on `Blocked`, kunnes käyttöehdot, robots-käytännöt, lisenssi ja lähdemainintavaatimus on tarkistettu.
+Alkuvaiheen lähde on Inderes Forum vain mock-only-tilassa, kunnes compliance hyväksyy tuotantokeruun.
 
 ### Scheduling
 
-Scheduling omistaa ajastetut tausta-ajot, EventBridge-säännöt, keruiden käynnistyksen, uudelleenajon ja idempotenssin. Scheduling ei omista kerättävän datan domain-sääntöjä.
+Scheduling omistaa ajastetut tausta-ajot, keruiden käynnistyksen, uudelleenajon, idempotenssin ja collection run -tilan.
 
-### Shared API boundary
+Scheduling ei omista kerättävän datan domain-sääntöjä eikä saa ohittaa lähdekohtaista compliance-rajaa.
 
-Frontend käyttää backendin julkista API:a. API-sopimukset eivät saa sisältää AWS-, DynamoDB-, PynamoDB-, Pydantic-, EODHD-, YTJ- tai Inderes-raakamalleja.
-
-## Glossary
+## Shared language
 
 - `User`: Auth-kontekstin käyttäjäidentiteetti.
-- `Principal`: API-reunan validista JWT:stä muodostettu kutsujan identiteetti ja roolitieto use caseille.
-- `Admin`: Auth-rooli, joka saa hallita käyttäjiä ja seurattavia yrityksiä hyväksyttyjen API-sopimusten mukaan.
-- `Regular user`: Auth-rooli, joka saa tarkastella dataa roolinsa sallimissa rajoissa.
+- `Principal`: validoidusta kutsujasta muodostettu identiteetti ja roolitieto use caseille.
+- `Admin`: rooli, joka saa hallita käyttäjiä ja seurattavia yrityksiä hyväksyttyjen tehtävien rajoissa.
 - `Tracked company`: yritys, jonka dataa järjestelmä kerää tai näyttää.
 - `Watchlist`: seurattavien yritysten joukko ja keruuasetukset.
-- `External source`: hyväksytty ulkoinen datalähde kuten EODHD, YTJ tai Inderes Forum.
-- `Source attribution`: lähde, hakuajankohta ja lähteen oma tunniste, jotka tallennetaan ulkoisesta datasta.
-- `Collection run`: ajastettu tai manuaalisesti käynnistetty datankeruun suoritus.
-- `Mock-only integration`: adapteri ja testit on toteutettu, mutta tuotantokutsu ulkoiseen palveluun on estetty.
+- `External source`: EODHD, YTJ tai Inderes Forum.
+- `Source attribution`: lähde, hakuajankohta ja lähteen tunniste, kun sellainen on saatavilla.
+- `Collection run`: ajastettu tai manuaalinen datankeruun suoritus.
+- `Mock-only`: adapteri ja testit voivat olla olemassa, mutta tuotantokutsu on estetty.
 
 ## Handoff rules
 
-- Auth voi pyytää Notificationsia toimittamaan kertakäyttöisen salaisuuden mutta ei saa tallentaa plaintext-salaisuutta.
-- Scheduling voi käynnistää Marketdata- ja Comments-keruita mutta ei saa ohittaa niiden kutsurajoja tai compliance-rajoja.
-- Companies and watchlist määrittää mitä yrityksiä kerätään. Marketdata ja Comments päättävät vain oman datatyyppinsä keruusta.
-- Ulkoisen lähteen adapteri normalisoi datan contextin domain-kielelle ennen tallennusta tai API-vastetta.
+- Auth voi pyytää Notificationsia toimittamaan vahvistus- tai resetointiviestin, mutta ei päätä viestikanavan tuotantototeutusta.
+- Companies and watchlist määrittää, mitä yrityksiä kerätään. Marketdata ja Comments vastaavat omista datatyypeistään.
+- Scheduling käynnistää keruita, mutta keräävä context päättää datan normalisoinnista ja virhekäsittelystä.
+- Ulkoisen lähteen raw-malli ei saa vuotaa domainiin, julkiseen API:in tai frontend-sopimukseen.
 
 ## Stop rules
 
-Pysähdy ja pyydä päätös, jos:
+Pysähdy, jos käyttötapaus kuuluu useaan contextiin eikä omistajuus ole selvä.
 
-- käyttötapaus kuuluu useaan contextiin eikä omistajuus ole selvä
-- ulkoisen lähteen dataa tarvitaan tuotannossa ilman compliance-dokumentaatiota
-- feature vaatii uutta contextia tai uuden jaetun domain-paketin
-- API-sopimus yrittää palauttaa ulkoisen lähteen tai AWS-palvelun raakamallin
-- käyttötapaus voisi tuottaa sijoitusneuvontaa, kaupankäyntisuosituksen tai automaattisen kaupankäyntipäätöksen
+Pysähdy, jos feature vaatii uuden contextin, jaetun domain-paketin tai cross-context deletion -politiikan.
+
+Pysähdy, jos ratkaisu voisi tuottaa sijoitusneuvontaa, suosituksia tai automaattisia kaupankäyntipäätöksiä.
 
 ## Acceptance
 
-- Agentti osaa nimetä käyttötapauksen omistavan contextin ennen suunnittelua.
-- Agentti osaa nimetä handoffin, kun työ koskee useaa contextia.
-- Agentti pysähtyy, jos omistajuus tai compliance-raja on epäselvä.
+Agentti nimeää omistavan contextin ennen suunnittelua tai toteutusta.
+
+Agentti kirjaa handoffin, kun työ koskee useaa contextia.
+
+Agentti luo HOW-yksityiskohdat detail-spec-tehtävässä, ei tähän context map -dokumenttiin.

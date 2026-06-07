@@ -33,9 +33,9 @@ You MUST read the overview resource to understand the complete workflow. The inf
 ## Project Context
 
 This repository is the durable product and delivery record for `agent_company`.
-The product goal is defined in `.backlog/docs/intent/goal.md`. Approved
-architecture decisions are in `.backlog/decisions/`. Operational constraints for
-agent decisions are in `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`.
+The product goal, intent, scope, and high-level technology boundaries are defined
+in `.backlog/docs/intent/goal.md`. Operational constraints for agent decisions
+are in `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`.
 
 The planned application is a monorepo with these application areas:
 
@@ -45,18 +45,25 @@ The planned application is a monorepo with these application areas:
 
 Do not introduce a new top-level application directory, runtime, framework,
 database, cloud service, authentication model, or deployment model without a new
-accepted ADR.
+user-approved ADR.
 
 ## Canonical Surfaces
 
 - Backlog.md is the durable source for tasks, specs, ADRs, acceptance criteria,
   implementation plans, implementation notes, review evidence, deploy notes, and
   final summaries.
+- After the project reset, `.backlog/decisions/` contains no accepted ADRs by
+  default. Treat ADRs as canonical only when they exist and were explicitly
+  approved by the user.
+- ADRs are for user-approved high-level decisions. Agents must not create or
+  accept detail-level ADRs unless the user explicitly requests that decision.
+- Agent HOW-level decisions belong in Backlog specs, task plans, implementation
+  notes, and final summaries inside the relevant task scope.
 - Multica is the routing and handoff surface for agent assignments. Do not model
   agent workflow phases as Backlog.md tasks.
 - Use Backlog.md MCP for `.backlog/docs`, tasks, and configuration. Use the
   Backlog.md CLI only when the MCP surface does not expose the required Backlog
-  operation, such as creating ADR files.
+  operation.
 - Do not edit `.backlog` task or document Markdown by hand when an MCP or CLI
   operation exists for the change.
 
@@ -66,7 +73,8 @@ Before planning or implementation, read the minimum relevant context:
 
 - Project goal: `.backlog/docs/intent/goal.md`
 - Agent constraints: `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`
-- Accepted ADRs: `.backlog/decisions/*.md`
+- Bounded context map: `.backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md`
+- Accepted ADRs in `.backlog/decisions/*.md`, only if files exist
 - Relevant Backlog task and linked specs or ADRs
 - Existing code, tests, commands, and local conventions once application code
   exists
@@ -75,12 +83,14 @@ Before planning or implementation, read the minimum relevant context:
 
 Stop and ask for a decision or record `Blocked` when a change would:
 
-- conflict with an accepted ADR or the project goal
+- conflict with the project goal, governance, a linked spec, or an accepted ADR
 - add a new AWS service, library, runtime, top-level application directory, public
   API contract, authentication model, or production data source
 - require production deploy, production data, credentials, secrets, cloud
   permissions, or external-service terms that are not documented
-- change Auth domain, DynamoDB, or REST behavior without accepted Auth ADRs
+- lock a public API, DynamoDB key/index model, IAM scope, deploy model, Auth
+  domain contract, or cross-context contract outside a relevant task or detail
+  specification
 - expose passwords, token plaintext, token digests, API keys, JWTs, PII, or raw
   external-service credentials in logs, events, API responses, fixtures, or docs
 - require guessing a business rule, retention rule, legal/compliance rule,

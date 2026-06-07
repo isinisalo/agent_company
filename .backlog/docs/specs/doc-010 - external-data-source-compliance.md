@@ -3,6 +3,7 @@ id: doc-010
 title: external-data-source-compliance
 type: specification
 created_date: '2026-06-07 10:54'
+updated_date: '2026-06-07 11:21'
 tags:
   - specs
   - compliance
@@ -13,97 +14,48 @@ tags:
 
 ## Tarkoitus
 
-Tämä speksi määrittää EODHD-, YTJ- ja Inderes Forum -lähteiden tuotantokäytön ehdot agenttityölle. Dokumentti ei hyväksy tuotantokeruuta sellaisenaan. Se määrittää, mitä pitää todentaa ennen tuotantokäyttöä.
+Tämä speksi määrittää ulkoisten lähteiden tuotantokäytön pysähtymisrajat. Se ei hyväksy tuotantokeruuta eikä päätä lähdekohtaisia ehtoja.
 
 ## Default state
 
-Kaikki ulkoiset datalähteet ovat `mock-only`, kunnes lähdekohtainen compliance-evidenssi on kirjattu ja hyväksytty.
+EODHD, PRH:n YTJ Open Data API v3 ja Inderes Forum ovat `mock-only`, kunnes lähdekohtainen compliance-evidenssi on dokumentoitu ja hyväksytty.
 
-`mock-only` tarkoittaa:
+`Mock-only` tarkoittaa, että agentti saa toteuttaa portin, adapterin, normalisoinnin, fixturet, Mockoon/response-testit ja lähdeattribuution. Agentti ei saa tehdä tuotantokutsua, ajastettua tuotantokeruuta tai oikeisiin credentialeihin perustuvaa ajoa.
 
-- adapterin portti, domain-normalisointi ja testit saa toteuttaa
-- Mockoon-, responses- tai fixture-pohjaiset testit saa lisätä
-- tuotantokutsua, ajastettua keruuta tai oikeiden credentialien käyttöä ei saa ottaa käyttöön
-- tallennusmalli saa sisältää lähdeattribuution ja fetched-at-kentät
+## Required evidence
 
-## Required evidence per source
+Ennen tuotantokäyttöä lähteelle pitää olla dokumentoitu vähintään:
 
-Ennen tuotantokäyttöä lähteelle kirjataan vähintään:
-
-- lähteen nimi ja käyttötarkoitus
-- käyttöehtojen tai lisenssin tarkistuspäivä
-- sallittu käyttötapa järjestelmässä
-- kielletty käyttötapa järjestelmässä
+- käyttötarkoitus järjestelmässä
+- tarkistetut käyttöehdot, lisenssi tai muu käyttöoikeus
 - lähdemainintavaatimus
-- rate limit tai konservatiivinen kutsuraja
-- caching- ja retention-raja
-- credentialin sijainti Secrets Managerissa, jos credential tarvitaan
-- virheenkäsittely ja retry-raja
+- sallittu keruutiheys ja kutsuraja
+- tallennus-, caching- ja retention-raja
+- PII:n tai käyttäjäsisällön käsittelyraja, jos lähde sisältää niitä
+- credentialin käsittely ja sijainti, jos credential tarvitaan
+- virheenkäsittelyn ja retryjen raja
 - vastuullinen hyväksyjä
 
-Jos lähteen ehdot muuttuvat tai ovat epäselvät, tuotantokäyttö palautuu `mock-only`-tilaan.
+## Source rules
 
-## EODHD
+EODHD on valittu markkinadatan lähdekandidaatiksi. Dataa ei saa käyttää sijoitusneuvontaan, suosituksiin tai kaupankäyntipäätöksiin.
 
-EODHD on valittu markkinadatan lähteeksi. Ennen tuotantokäyttöä pitää todentaa:
+YTJ on valittu suomalaisten yritysten perustietojen lähdekandidaatiksi. Henkilö- tai vastuuhenkilötiedot vaativat erillisen käsittelyrajan.
 
-- lisenssi sallii suunnitellun tallennuksen ja näyttämisen
-- lähdemaininta täyttää EODHD:n vaatimukset
-- API-avaimen säilytys on Secrets Managerissa
-- kutsurajat ja retryt eivät riko palvelun ehtoja
-- dataa ei käytetä sijoitusneuvontaan, suosituksiin tai kaupankäyntipäätöksiin
-
-Marketdata-adapteri ei saa vuotaa EODHD:n raakamallia domainiin tai julkiseen API:in.
-
-## YTJ Open Data API v3
-
-YTJ on valittu suomalaisten yritysten perustietojen lähteeksi. Ennen tuotantokäyttöä pitää todentaa:
-
-- lisenssi ja lähdemainintavaatimus
-- sallitut tallennettavat kentät
-- henkilötietojen tai vastuuhenkilötietojen käsittelyn rajat
-- retention ja päivitystiheys
-- virheiden ja puuttuvan datan käsittely
-
-Companies and watchlist -context normalisoi YTJ-datan omaan domain-kieleensä.
-
-## Inderes Forum
-
-Inderes Forum on valittu alkuvaiheen keskusteluaineiston lähteeksi. Tuotantokeruu on `Blocked`, kunnes seuraavat on tarkistettu:
-
-- käyttöehdot
-- robots-käytännöt
-- lisenssi tai muu käyttöoikeus
-- lähdemainintavaatimus
-- sallittu keruutiheys
-- sallittu säilytysaika
-- käyttäjäsisällön ja mahdollisen PII:n käsittelyrajat
-
-Comments-kontekstin adapteri saa olla olemassa mockattuna. Ajastettu tuotantokeruu ei saa käynnistyä ennen hyväksyttyä compliance-päätöstä.
-
-## Source attribution
-
-Kaikessa ulkoisesta lähteestä tallennetussa datassa tulee olla:
-
-- `source` tai domainin vastaava lähdetieto
-- `fetched_at` UTC ISO 8601 -muodossa
-- lähteen oma tunniste, kun sellainen on saatavilla
-- normalisoidun datan schema-versio, jos mallia muutetaan ajan yli
-
-Lähdeattribuutiota ei saa hävittää myöhemmissä muunnoksissa.
+Inderes Forum on valittu alkuvaiheen keskusteluaineiston lähdekandidaatiksi. Tuotantokeruu on estetty, kunnes käyttöehdot, robots-käytäntö, lisenssi, lähdemaininta ja käyttäjäsisällön käsittelyraja on hyväksytty.
 
 ## Stop rules
 
-Pysähdy ja pyydä päätös, jos:
+Pysähdy, jos lähteen ehdot, lisenssi, robots-käytäntö, lähdemaininta, kutsuraja tai retention on epäselvä.
 
-- lähteen ehdot, robots-käytäntö, lisenssi tai lähdemaininta on epäselvä
-- tuotantokeruu tarvitsisi oikean credentialin
-- ajastusväliä ei voi perustella kutsurajojen perusteella
-- lähde sisältää PII:tä tai käyttäjäsisältöä eikä käsittelyrajaa ole hyväksytty
-- dataa aiotaan käyttää suositukseen, sijoitusneuvontaan tai kaupankäyntipäätökseen
+Pysähdy, jos tuotantokeruu tarvitsisi oikean credentialin.
+
+Pysähdy, jos lähdedataa aiotaan käyttää sijoitusneuvontaan, suositukseen tai automaattiseen kaupankäyntipäätökseen.
 
 ## Acceptance
 
-- Agentti voi toteuttaa mockatun adapterin ilman tuotantokäyttöönottoa.
-- Agentti ei voi käynnistää tuotantokeruuta ilman lähdekohtaista hyväksyttyä evidenssiä.
-- Agentti tallentaa lähdeattribuution kaikkeen ulkoisesta lähteestä normalisoituun dataan.
+Agentti voi toteuttaa mock-only-adapterin ilman tuotantokäyttöönottoa.
+
+Agentti estää tuotantokeruun ilman hyväksyttyä lähdekohtaista evidenssiä.
+
+Agentti säilyttää lähdeattribuution ulkoisesta lähteestä normalisoituun dataan.

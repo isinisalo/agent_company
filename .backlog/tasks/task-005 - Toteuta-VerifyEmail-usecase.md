@@ -4,24 +4,21 @@ title: 'Auth: Sähköpostin vahvistus'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 10:57'
+updated_date: '2026-06-07 11:24'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-012
-  - TASK-013
-  - TASK-014
+  - TASK-015
 references:
-  - .backlog/decisions/*.md
+  - >-
+    .backlog/tasks/task-015 -
+    Detail-spec-Auth-domain-API-ja-persistence-contract.md
+documentation:
   - .backlog/docs/intent/goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
-  - .backlog/decisions/decision-009 - Backend-Valitaan-Auth-domain-malli.md
-  - >-
-    .backlog/decisions/decision-010 -
-    Data-Valitaan-Auth-DynamoDB-tietokantarakenne.md
-  - .backlog/decisions/decision-011 - Backend-Valitaan-Auth-REST-API-sopimus.md
+  - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium
 ordinal: 4000
 ---
@@ -30,7 +27,7 @@ ordinal: 4000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin sähköpostin vahvistus hyväksyttyjen Auth-päätösten mukaisesti.
+Toteuta Auth-kontekstin sähköpostin vahvistus Auth detail-specin ja tämän tehtävän acceptance criteria -kohtien mukaisesti.
 
 - Käyttäjä voi vahvistaa sähköpostinsa kertakäyttöisellä vahvistussalaisuudella.
 - Vahvistus onnistuu vain tunnetulle käyttäjälle, jonka vahvistussalaisuus on oikea, voimassa ja käyttämätön.

@@ -1,6 +1,6 @@
 ---
 id: m-1
-title: "Backend Auth bounded context"
+title: "Auth bounded context"
 ---
 
 ## Description

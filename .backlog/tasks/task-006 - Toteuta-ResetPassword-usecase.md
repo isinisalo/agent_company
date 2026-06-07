@@ -4,26 +4,23 @@ title: 'Auth: Salasanan resetointipyyntö'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 10:57'
+updated_date: '2026-06-07 11:24'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-012
-  - TASK-013
-  - TASK-014
+  - TASK-015
 references:
-  - .backlog/decisions/*.md
-  - .backlog/docs/intent/goal.md
-  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
+  - >-
+    .backlog/tasks/task-015 -
+    Detail-spec-Auth-domain-API-ja-persistence-contract.md
   - >-
     https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html
-  - .backlog/decisions/decision-009 - Backend-Valitaan-Auth-domain-malli.md
-  - >-
-    .backlog/decisions/decision-010 -
-    Data-Valitaan-Auth-DynamoDB-tietokantarakenne.md
-  - .backlog/decisions/decision-011 - Backend-Valitaan-Auth-REST-API-sopimus.md
+documentation:
+  - .backlog/docs/intent/goal.md
+  - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
+  - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium
 ordinal: 5000
 ---
@@ -32,11 +29,11 @@ ordinal: 5000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin salasanan resetointipyyntö hyväksyttyjen Auth-päätösten mukaisesti.
+Toteuta Auth-kontekstin salasanan resetointipyyntö Auth detail-specin ja tämän tehtävän acceptance criteria -kohtien mukaisesti.
 
 - Käyttäjä voi pyytää salasanan resetointia tunnisteensa perusteella.
 - Resetointipyyntö ei paljasta, onko tunnisteella käyttäjää.
-- Tunnetulle käyttäjälle syntyy kertakäyttöinen resetointisalaisuus, joka voidaan toimittaa hyväksytyn viestintäkanavan kautta.
+- Tunnetulle käyttäjälle syntyy kertakäyttöinen resetointisalaisuus, joka voidaan toimittaa hyväksytyn viestintäpolun kautta.
 - Salaisuudesta ei tallenneta, palauteta, julkaista tai lokiteta plaintext-arvoa.
 - Virheellinen syöte hylätään ennen käyttäjähakua.
 
@@ -46,12 +43,14 @@ Salasanan resetointipyyntö käynnistää palautusvirran ilman käyttäjän olem
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN tunnettu käyttäjä ja validi resetointipyyntö, WHEN salasanan resetointia pyydetään, THEN pyyntö hyväksytään ja resetointisalaisuus voidaan toimittaa hyväksytyn viestintäkanavan kautta.
-- [ ] #2 GIVEN tunnettu käyttäjä, WHEN resetointipyyntö hyväksytään, THEN vain hyväksytyissä Auth-päätöksissä määritetty salaisuuden tarkistamiseen tarvittava tieto tallennetaan eikä plaintext-salaisuutta tallenneta.
+- [ ] #1 GIVEN tunnettu käyttäjä ja validi resetointipyyntö, WHEN salasanan resetointia pyydetään, THEN pyyntö hyväksytään ja resetointisalaisuus voidaan toimittaa hyväksytyn viestintäpolun kautta.
+- [ ] #2 GIVEN tunnettu käyttäjä, WHEN resetointipyyntö hyväksytään, THEN vain Auth detail-specissä määritetty salaisuuden tarkistamiseen tarvittava tieto tallennetaan eikä plaintext-salaisuutta tallenneta.
 - [ ] #3 GIVEN tuntematon käyttäjän tunniste, WHEN salasanan resetointia pyydetään, THEN lopputulos ei paljasta käyttäjän puuttumista eikä uutta käyttäjää luoda.
 - [ ] #4 GIVEN resetointipyyntö on puutteellinen tai virheellinen, WHEN sitä käsitellään, THEN se hylätään ennen käyttäjähakua.
 - [ ] #5 GIVEN resetointipyyntö onnistuu tai käyttäjää ei löydy, WHEN vastaus ja lokit muodostetaan, THEN käyttäjän olemassaoloa, resetointisalaisuutta tai salaisuuden tarkistamiseen käytettyä salattua tietoa ei palauteta tai lokiteta.
 <!-- AC:END -->
+
+
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

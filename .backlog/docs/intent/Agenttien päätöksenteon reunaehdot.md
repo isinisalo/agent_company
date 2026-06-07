@@ -1,6 +1,6 @@
 ---
 id: doc-004
-title: AWS-agenttien päätöksenteon reunaehdot
+title: Agenttien päätöksenteon reunaehdot
 type: specification
 created_date: '2026-06-07 06:33'
 tags:
@@ -9,7 +9,7 @@ tags:
   - agents
   - constraints
 ---
-# AWS-agenttien päätöksenteon reunaehdot
+# Agenttien päätöksenteon reunaehdot
 
 ## Tarkoitus
 

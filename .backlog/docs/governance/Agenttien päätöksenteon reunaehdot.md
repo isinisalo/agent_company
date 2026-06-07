@@ -4,7 +4,7 @@ title: Agenttien päätöksenteon reunaehdot
 type: specification
 created_date: '2026-06-07 06:33'
 tags:
-  - intent
+  - governance
   - aws
   - agents
   - constraints
@@ -13,7 +13,7 @@ tags:
 
 ## Tarkoitus
 
-Tämä speksi täydentää dokumenttia `.backlog/docs/intent/goal.md`. Sen tehtävä on antaa agenteille riittävä päätöksentekokehys AWS-pohjaisen web-sovelluksen toteuttamiseen silloin, kun yksityiskohtainen käyttötapaus-, API-, data- tai infrastruktuurispeksi puuttuu.
+Antaa agenteille riittävä päätöksentekokehys AWS-pohjaisen web-sovelluksen toteuttamiseen silloin, kun yksityiskohtainen käyttötapaus-, API-, data- tai infrastruktuurispeksi puuttuu.
 
 Agentti saa tehdä itsenäisiä päätöksiä vain tämän dokumentin, hyväksyttyjen arkkitehtuuripäätösten, Backlog-tehtävän ja olemassa olevan koodin muodostamassa rajassa. Jos päätös muuttaisi projektin tavoitetta, hyväksyttyä arkkitehtuuria, tietoturvamallia, kustannusprofiilia tai julkista sopimusta olennaisesti, agentti ei saa ratkaista asiaa oletuksella vaan sen tulee pyytää hyväksyntä tai kirjata uusi ADR-/speksehdotus.
 

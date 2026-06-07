@@ -47,6 +47,13 @@ Kuvaa, miksi tehtävä on tarpeellinen ja mitä ongelmaa se ratkaisee.
 - [ ] #2 GIVEN [lähtötilanne], WHEN [toiminto tai tapahtuma], THEN [odotettu lopputulos]
 <!-- AC:END -->
 
+## Definition of Done
+<!-- DOD:BEGIN -->
+- [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
+- [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
+- [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
+<!-- DOD:END -->
+
 ## Implementation Plan
 
 <!-- SECTION:PLAN:BEGIN -->
@@ -68,11 +75,4 @@ Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdollis
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
 Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
 <!-- SECTION:FINAL_SUMMARY:END -->
-
-## Definition of Done
-<!-- DOD:BEGIN -->
-- [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
-- [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
-- [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
-<!-- DOD:END -->
 ```

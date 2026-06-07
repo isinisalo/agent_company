@@ -15,7 +15,7 @@ references:
     .backlog/tasks/task-016 -
     Detail-spec-Notifications-messaging-and-delivery-contract.md
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium
 ordinal: 2000

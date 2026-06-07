@@ -16,7 +16,7 @@ references:
     .backlog/tasks/task-015 -
     Detail-spec-Auth-domain-API-ja-persistence-contract.md
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 priority: medium

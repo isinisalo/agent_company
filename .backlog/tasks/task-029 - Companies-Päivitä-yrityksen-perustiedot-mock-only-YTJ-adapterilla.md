@@ -14,7 +14,7 @@ dependencies:
 references:
   - .backlog/tasks/task-017 - Detail-spec-Companies-and-watchlist-contract.md
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
   - .backlog/docs/specs/doc-010 - external-data-source-compliance.md
 priority: medium

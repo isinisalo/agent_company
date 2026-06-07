@@ -4,7 +4,7 @@ title: 'Project reset: Backlog-rakenteen normalisointi'
 status: Done
 assignee: []
 created_date: '2026-06-07 11:28'
-updated_date: '2026-06-07 11:31'
+updated_date: '2026-06-07 11:59'
 labels:
   - Project
   - Governance
@@ -12,12 +12,12 @@ labels:
 milestone: m-2
 dependencies: []
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
 modified_files:
   - AGENTS.md
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-005 - project-structure-and-quality-gates.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
@@ -61,9 +61,9 @@ Käyttäjä määrittää GOAL/INTENT/WHY/WHAT-tason. Agentit määrittävät HO
 ## Final Summary
 
 <!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Backlog-rakenne resetoitiin käyttäjän pyytämään malliin. Kaikki epäkanoniset decision-tiedostot poistettiin, vanhat Auth detail-päätöstehtävät arkistoitiin ja neutraloitiin, Auth use case -taskit päivitettiin riippumaan uudesta `TASK-015` Auth detail-specistä, ja uudet detail-spec- sekä bounded context -milestonet/taskit luotiin.
+Backlog-rakenne resetoitiin käyttäjän pyytämään malliin korjatulla ADR-rajauksella. Korkean tason ADR:t `decision-001` - `decision-008` säilyvät hyväksyttyinä päätöksinä. Detail-tason Auth-päätökset 009-011 poistettiin kanonisesta päätöshistoriasta, vanhat Auth detail-päätöstehtävät arkistoitiin ja neutraloitiin, Auth use case -taskit päivitettiin riippumaan uudesta `TASK-015` Auth detail-specistä, ja uudet detail-spec- sekä bounded context -milestonet/taskit luotiin.
 
-Validointi: `milestone_list` näyttää 8 milestonea (`Auth`, `Project reset`, `Agent detail specifications`, `Notifications`, `Companies and watchlist`, `Marketdata`, `Comments`, `Scheduling`). `find .backlog/decisions -maxdepth 1 -type f` ei palauta tiedostoja. Stale Auth-decision -viitehaku ei palauta osumia. `document_list` näyttää kanoniset `intent/goal.md` ja governance-polut.
+Validointi: `milestone_list` näyttää 8 milestonea (`Auth`, `Project reset`, `Agent detail specifications`, `Notifications`, `Companies and watchlist`, `Marketdata`, `Comments`, `Scheduling`). `find .backlog/decisions -maxdepth 1 -type f` näyttää vain `decision-001` - `decision-008`. Stale Auth-detail-decision -viitehaku ei palauta osumia aktiivisista dokumenteista tai taskeista. `document_list` näyttää kanoniset `intent/doc-001 - goal.md` ja governance-polut.
 
 Rajoitus: sovelluskoodia ei ole vielä (`backend/`, `frontend/`, `infra/` puuttuvat), joten backend/frontend/infra-lint-, typecheck-, build- tai testikomentoja ei voitu ajaa.
 <!-- SECTION:FINAL_SUMMARY:END -->

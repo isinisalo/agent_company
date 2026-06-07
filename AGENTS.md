@@ -34,8 +34,12 @@ You MUST read the overview resource to understand the complete workflow. The inf
 
 This repository is the durable product and delivery record for `agent_company`.
 The product goal, intent, scope, and high-level technology boundaries are defined
-in `.backlog/docs/intent/goal.md`. Operational constraints for agent decisions
+in `.backlog/docs/intent/doc-001 - goal.md`. Operational constraints for agent decisions
 are in `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`.
+
+The currently accepted high-level ADRs are `.backlog/decisions/decision-001` through
+`.backlog/decisions/decision-008`. Detail-level Auth ADRs numbered 009 through
+011 were intentionally removed from the canonical decision set.
 
 The planned application is a monorepo with these application areas:
 
@@ -52,9 +56,6 @@ user-approved ADR.
 - Backlog.md is the durable source for tasks, specs, ADRs, acceptance criteria,
   implementation plans, implementation notes, review evidence, deploy notes, and
   final summaries.
-- After the project reset, `.backlog/decisions/` contains no accepted ADRs by
-  default. Treat ADRs as canonical only when they exist and were explicitly
-  approved by the user.
 - ADRs are for user-approved high-level decisions. Agents must not create or
   accept detail-level ADRs unless the user explicitly requests that decision.
 - Agent HOW-level decisions belong in Backlog specs, task plans, implementation
@@ -71,10 +72,10 @@ user-approved ADR.
 
 Before planning or implementation, read the minimum relevant context:
 
-- Project goal: `.backlog/docs/intent/goal.md`
+- Project goal: `.backlog/docs/intent/doc-001 - goal.md`
 - Agent constraints: `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`
 - Bounded context map: `.backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md`
-- Accepted ADRs in `.backlog/decisions/*.md`, only if files exist
+- Accepted high-level ADRs: `.backlog/decisions/decision-001` through `.backlog/decisions/decision-008`
 - Relevant Backlog task and linked specs or ADRs
 - Existing code, tests, commands, and local conventions once application code
   exists

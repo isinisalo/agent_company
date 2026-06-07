@@ -12,7 +12,7 @@ labels:
 milestone: m-3
 dependencies: []
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-007 - security-data-classification.md
   - .backlog/docs/specs/doc-008 - config-secrets-catalog.md

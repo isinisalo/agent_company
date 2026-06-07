@@ -14,7 +14,7 @@ tags:
 
 ## Tarkoitus
 
-Tämä dokumentti määrittää projektin bounded contextien intent- ja goal-tason rajaukset. Käytä tätä yhdessä `goal.md`:n, bounded context -kartan ja relevantin Backlog-tehtävän kanssa.
+Tämä dokumentti määrittää projektin bounded contextien intent- ja goal-tason rajaukset. Käytä tätä yhdessä `doc-001 - goal.md`:n, bounded context -kartan ja relevantin Backlog-tehtävän kanssa.
 
 Dokumentti ei määritä contextien sisäisiä domain-malleja, API-reittejä, portteja, adaptereita, DynamoDB-avaimia, IAM-scopeja, event-skeemoja, infrastruktuuria tai frontend-näkymiä. HOW-tason ratkaisut kuuluvat detail-spec-tehtäviin ja tehtäväkohtaisiin implementation plan/notes/final summary -osioihin.
 

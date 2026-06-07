@@ -13,7 +13,7 @@ dependencies:
   - TASK-014
   - TASK-017
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
   - .backlog/docs/specs/doc-010 - external-data-source-compliance.md

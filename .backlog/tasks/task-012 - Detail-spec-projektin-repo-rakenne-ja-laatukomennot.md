@@ -10,7 +10,7 @@ labels:
 milestone: m-3
 dependencies: []
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-005 - project-structure-and-quality-gates.md
 priority: medium

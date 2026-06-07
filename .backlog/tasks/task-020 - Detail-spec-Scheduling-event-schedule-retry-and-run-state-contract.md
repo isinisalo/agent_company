@@ -15,7 +15,7 @@ dependencies:
   - TASK-018
   - TASK-019
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
   - .backlog/docs/specs/doc-009 - aws-runtime-operations.md

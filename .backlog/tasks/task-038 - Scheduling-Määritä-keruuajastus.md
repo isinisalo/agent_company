@@ -16,7 +16,7 @@ references:
     .backlog/tasks/task-020 -
     Detail-spec-Scheduling-event-schedule-retry-and-run-state-contract.md
 documentation:
-  - .backlog/docs/intent/goal.md
+  - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md
   - .backlog/docs/specs/doc-009 - aws-runtime-operations.md
 priority: medium

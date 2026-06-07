@@ -1,16 +1,18 @@
 ---
 id: TASK-003
-title: Toteuta Login-usecase
+title: 'Auth: Kirjautuminen'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:18'
-updated_date: '2026-06-07 10:08'
+updated_date: '2026-06-07 10:36'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-002
+  - TASK-012
+  - TASK-013
+  - TASK-014
 references:
   - .backlog/decisions/*.md
   - .backlog/docs/intent/goal.md
@@ -23,49 +25,26 @@ ordinal: 2000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin käyttäjän kirjautuminen.
+Toteuta Auth-kontekstin käyttäjän kirjautuminen hyväksyttyjen Auth-päätösten mukaisesti.
 
-- Tarjoa julkinen REST-rajapinta `POST /auth/token`.
-- Hyväksy pyynnössä `email` ja `password`.
-- Hae käyttäjä normalisoidulla emaililla `IUserRepository`-portin kautta.
-- Tarkista salasana `PasswordHasher`-portilla ja käyttäjän login-kelpoisuus `User`-aggregaatin säännöillä.
-- Palauta onnistuneesta kirjautumisesta RS256-allekirjoitettu JWT access token.
-- Päivitä `last_login_at` ja mahdollinen vanhentunut password hash vain onnistuneen kirjautumisen yhteydessä.
+- Käyttäjä voi kirjautua tunnisteellaan ja salasanallaan.
+- Kirjautuminen onnistuu vain, kun käyttäjä tunnetaan, salasana täsmää, sähköposti on vahvistettu ja käyttäjän käyttö on sallittu.
+- Epäonnistunut kirjautuminen hylätään yhdenmukaisesti ilman, että tarkka syy paljastuu.
+- Onnistunut kirjautuminen tuottaa käyttöoikeustunnisteen ja päivittää kirjautumiseen liittyvät tiedot hyväksyttyjen päätösten mukaisesti.
+- Salaisuuksia ei palauteta, julkaista tai lokiteta.
 
 ### MIKSI
-Kirjautuminen on selaimen ja API:n perusvirta. Usecase varmistaa, että API-tokenin saa vain tunnettu, sähköpostinsa vahvistanut ja adminin sallima käyttäjä ilman, että epäonnistumisen syy paljastaa käyttäjätilin olemassaoloa tai tilaa.
+Kirjautuminen on selaimen ja API:n perusvirta. Käyttötapaus varmistaa, että käyttöoikeustunnisteen saa vain tunnettu, sähköpostinsa vahvistanut ja adminin sallima käyttäjä ilman käyttäjätilin olemassaolon tai tilan vuotamista.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN enabled ja email-vahvistettu käyttäjä sekä oikea salasana, WHEN `POST /auth/token` kutsutaan validilla pyynnöllä, THEN vastaus on `200 OK` ja sisältää JWT access tokenin.
-- [ ] #2 GIVEN unknown email, väärä salasana, disabled user tai vahvistamaton email, WHEN `POST /auth/token` kutsutaan, THEN vastaus on sama generic `401 Unauthorized` ilman tarkkaa syytä.
-- [ ] #3 GIVEN kirjautuminen onnistuu, WHEN password hash tarvitsee rehashauksen tai `last_login_at` päivittyy, THEN käyttäjä persistetään `IUserRepository.update`-portin kautta.
-- [ ] #4 GIVEN pyyntö ei sisällä validia emailia tai salasanaa, WHEN `POST /auth/token` kutsutaan, THEN pyyntö hylätään validointivirheenä ennen salasanatarkistusta.
-- [ ] #5 GIVEN autentikointi epäonnistuu tai onnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä salasanaa, password hashia, JWT:tä tai salaisia avaimia lokiteta.
+- [ ] #1 GIVEN käyttöön sallittu ja sähköpostinsa vahvistanut käyttäjä sekä oikea salasana, WHEN käyttäjä kirjautuu, THEN kirjautuminen hyväksytään ja käyttäjä saa käyttöoikeustunnisteen.
+- [ ] #2 GIVEN tunniste on tuntematon, salasana on väärä, käyttäjän käyttö on estetty tai sähköposti on vahvistamatta, WHEN kirjautumista yritetään, THEN kirjautuminen hylätään samalla tavalla ilman tarkkaa syytä.
+- [ ] #3 GIVEN kirjautuminen onnistuu, WHEN kirjautumisen jälkeiset tiedot tallennetaan, THEN vain hyväksytyissä Auth-päätöksissä määritetyt kirjautumistiedot muuttuvat.
+- [ ] #4 GIVEN kirjautumispyyntö on puutteellinen tai virheellinen, WHEN sitä käsitellään, THEN se hylätään ennen salasanatarkistusta.
+- [ ] #5 GIVEN kirjautuminen onnistuu tai epäonnistuu, WHEN vastaus ja lokit muodostetaan, THEN salasanaa, salasanan tarkistamiseen käytettyjä salaisia tietoja, käyttöoikeustunnisteita tai avaimia ei palauteta tai lokiteta.
 <!-- AC:END -->
-
-## Implementation Plan
-
-<!-- SECTION:PLAN:BEGIN -->
-Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
-
-- [Toteutustapa]
-- [Keskeiset tiedostot, rajapinnat tai komponentit]
-- [Testaus- ja varmistustapa]
-<!-- SECTION:PLAN:END -->
-
-## Implementation Notes
-
-<!-- SECTION:NOTES:BEGIN -->
-Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
-<!-- SECTION:NOTES:END -->
-
-## Final Summary
-
-<!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
-<!-- SECTION:FINAL_SUMMARY:END -->
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

@@ -1,16 +1,18 @@
 ---
 id: TASK-004
-title: Toteuta RegisterUser-usecase
+title: 'Auth: Käyttäjän rekisteröinti'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 10:08'
+updated_date: '2026-06-07 10:36'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-002
+  - TASK-012
+  - TASK-013
+  - TASK-014
 references:
   - .backlog/decisions/*.md
   - .backlog/docs/intent/goal.md
@@ -23,53 +25,27 @@ ordinal: 3000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin public registration.
+Toteuta Auth-kontekstin käyttäjän rekisteröinti hyväksyttyjen Auth-päätösten mukaisesti.
 
-- Tarjoa julkinen REST-rajapinta `POST /auth/register`.
-- Hyväksy pyynnössä vain `name`, `email` ja `password`.
-- Hylkää clientin antamat `role`- ja `enabled`-kentät.
-- Tarkista rekisteröinnin feature flag polusta `/feature/auth/register_user`.
-- Luo uusi käyttäjä roolilla `READER`, `enabled=true` ja `email_verified_at=null`.
-- Hashaa salasana `PasswordHasher`-portilla, tallenna verification-tokenin digest ja julkaise tokeniton `NewUserRegistered`-domain-event.
+- Uusi käyttäjä voi rekisteröityä, kun rekisteröinti on järjestelmän asetuksilla sallittu.
+- Rekisteröityvä käyttäjä syntyy perusoikeuksilla, käyttöön sallittuna ja sähköposti vahvistamattomana.
+- Rekisteröityvä käyttäjä ei voi itse valita rooliaan tai hallinnollista käyttötilaansa.
+- Onnistunut rekisteröinti käynnistää sähköpostivahvistuksen ilman salaisuuksien vuotamista.
+- Rekisteröinti hylätään, jos käyttäjän tunniste on jo käytössä tai syöte ei täytä hyväksyttyjä sääntöjä.
 
 ### MIKSI
-Rekisteröinti käynnistää käyttäjän elinkaaren ilman admin-toimenpidettä. Usecase varmistaa, että uusi käyttäjä syntyy yhtenäisillä Auth-säännöillä eikä client voi nostaa oikeuksiaan tai ohittaa sähköpostivahvistusta.
+Rekisteröinti käynnistää käyttäjän elinkaaren ilman admin-toimenpidettä. Käyttötapaus varmistaa, että uusi käyttäjä syntyy yhtenäisillä Auth-säännöillä eikä client voi nostaa oikeuksiaan tai ohittaa sähköpostivahvistusta.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN rekisteröinti on feature flagilla sallittu ja email on uusi, WHEN `POST /auth/register` kutsutaan validilla `name`, `email` ja `password` -pyynnöllä, THEN vastaus on `201 Created` ja käyttäjä persistetään roolilla `READER`, `enabled=true` ja `email_verified_at=null`.
-- [ ] #2 GIVEN rekisteröinti onnistuu, WHEN käyttäjä persistetään, THEN tallennettu käyttäjä sisältää password hashin ja verification-token-digestin mutta ei plaintext-salasanaa tai plaintext-tokenia.
-- [ ] #3 GIVEN rekisteröinti onnistuu, WHEN `NewUserRegistered` julkaistaan, THEN tapahtuma on tokeniton ja credential-vapaa eikä sisällä plaintext-tokenia, token-digestiä, salasanaa tai password hashia.
-- [ ] #4 GIVEN pyyntö sisältää `role`- tai `enabled`-kentän, WHEN `POST /auth/register` kutsutaan, THEN pyyntö hylätään validointivirheenä eikä käyttäjää luoda.
-- [ ] #5 GIVEN email on jo käytössä, WHEN rekisteröintiä yritetään samalla emaililla, THEN pyyntö hylätään konfliktina eikä uutta käyttäjää tai domain-tapahtumaa synny.
-- [ ] #6 GIVEN rekisteröinnin feature flag puuttuu, on lukukelvoton tai on `false`, WHEN `POST /auth/register` kutsutaan, THEN rekisteröinti hylätään hallitulla virheellä eikä käyttäjää persistetä.
-- [ ] #7 GIVEN pyynnön email, name tai password ei täytä taskissa määriteltyjä validointisääntöjä, WHEN rekisteröintiä yritetään, THEN pyyntö hylätään validointivirheenä ennen persistointia.
+- [ ] #1 GIVEN rekisteröinti on sallittu ja käyttäjän tunniste on vapaa, WHEN käyttäjä rekisteröityy validilla nimellä, yhteystiedolla ja salasanalla, THEN käyttäjä luodaan perusoikeuksilla, käyttöön sallittuna ja sähköpostivahvistusta odottavana.
+- [ ] #2 GIVEN rekisteröinti onnistuu, WHEN käyttäjään liittyvät salaisuudet käsitellään, THEN plaintext-salasanaa tai sähköpostivahvistuksen salaisuutta ei tallenneta, palauteta, julkaista tai lokiteta.
+- [ ] #3 GIVEN rekisteröityvä käyttäjä yrittää valita roolin tai hallinnollisen käyttötilan, WHEN rekisteröintiä käsitellään, THEN pyyntö hylätään eikä käyttäjää luoda.
+- [ ] #4 GIVEN käyttäjän tunniste on jo käytössä, WHEN rekisteröintiä yritetään samalla tunnisteella, THEN pyyntö hylätään eikä uutta käyttäjää tai rekisteröintisignaalia synny.
+- [ ] #5 GIVEN rekisteröintiä ei ole järjestelmän asetuksilla sallittu tai asetusta ei voi tulkita turvallisesti, WHEN rekisteröintiä yritetään, THEN rekisteröinti hylätään eikä käyttäjää luoda.
+- [ ] #6 GIVEN nimi, yhteystieto tai salasana ei täytä hyväksyttyjä validointisääntöjä, WHEN rekisteröintiä yritetään, THEN pyyntö hylätään ennen käyttäjän luomista.
 <!-- AC:END -->
-
-
-
-## Implementation Plan
-
-<!-- SECTION:PLAN:BEGIN -->
-Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
-
-- [Toteutustapa]
-- [Keskeiset tiedostot, rajapinnat tai komponentit]
-- [Testaus- ja varmistustapa]
-<!-- SECTION:PLAN:END -->
-
-## Implementation Notes
-
-<!-- SECTION:NOTES:BEGIN -->
-Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
-<!-- SECTION:NOTES:END -->
-
-## Final Summary
-
-<!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
-<!-- SECTION:FINAL_SUMMARY:END -->
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

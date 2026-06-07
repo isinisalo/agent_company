@@ -1,16 +1,18 @@
 ---
 id: TASK-008
-title: Toteuta DisableUser-usecase
+title: 'Auth: Käyttäjän käytöstä poisto'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 10:08'
+updated_date: '2026-06-07 10:36'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-002
+  - TASK-012
+  - TASK-013
+  - TASK-014
 references:
   - .backlog/decisions/*.md
   - .backlog/docs/intent/goal.md
@@ -23,50 +25,27 @@ ordinal: 7000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin admin-toiminto käyttäjätilin estämiseen.
+Toteuta Auth-kontekstin admin-toiminto käyttäjän käytön estämiseen hyväksyttyjen Auth-päätösten mukaisesti.
 
-- Tarjoa REST-rajapinta `PATCH /auth/users/disable`.
-- Vaadi auktorisoinniksi `ADMIN`-rooli.
-- Hyväksy query-parametrina `email`.
-- Lataa käyttäjä normalisoidulla emaililla `IUserRepository`-portin kautta.
-- Aseta käyttäjän `enabled=false` ja persistoi päivitys.
-- Älä muuta käyttäjän `email_verified_at`-arvoa.
+- Vain hallintakäyttäjä voi estää käyttäjän käytön.
+- Toiminto kohdistuu käyttäjään hyväksytyn rajapintasopimuksen mukaisella tunnisteella.
+- Toiminto on idempotentti, jos käyttäjän käyttö on jo estetty.
+- Toiminto ei muuta sähköpostivahvistuksen tilaa.
+- Salaisuuksia ei palauteta, julkaista tai lokiteta.
 
 ### MIKSI
-Adminin pitää pystyä estämään käyttäjätilin API-käyttö ilman tilin poistamista ja ilman, että sähköpostivahvistuksen tila muuttuu. Usecase keskittää käyttöeston Auth-domainiin ja rajaa muutoksen vain `ADMIN`-roolille.
+Adminin pitää pystyä estämään käyttäjätilin API-käyttö ilman tilin poistamista ja ilman, että sähköpostivahvistuksen tila muuttuu. Käyttötapaus keskittää käyttöeston Auth-domainiin ja rajaa muutoksen vain hallintakäyttäjälle.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN enabled user ja kutsuja roolilla `ADMIN`, WHEN `PATCH /auth/users/disable?email=...` kutsutaan, THEN vastaus on `204 No Content` ja käyttäjä persistetään `enabled=false`.
-- [ ] #2 GIVEN user on jo `enabled=false` ja kutsuja roolilla `ADMIN`, WHEN disable-usecase kutsutaan, THEN vastaus on `204 No Content` ja operaatio on idempotentti.
-- [ ] #3 GIVEN käyttäjä löytyy, WHEN disable-usecase onnistuu, THEN `email_verified_at` ei muutu.
-- [ ] #4 GIVEN käyttäjää ei löydy ja kutsuja on `ADMIN`, WHEN disable-usecase kutsutaan emaililla, THEN vastaus on `404 Not Found` eikä uutta käyttäjää luoda.
-- [ ] #5 GIVEN kutsujan rooli ei ole `ADMIN`, WHEN disable-usecasea kutsutaan, THEN pyyntö hylätään auktorisointivirheenä ennen käyttäjän päivittämistä.
-- [ ] #6 GIVEN deaktivointi onnistuu tai epäonnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä credential- tai token-kenttiä lokiteta.
+- [ ] #1 GIVEN käyttäjän käyttö on sallittu ja kutsuja on hallintakäyttäjä, WHEN käyttäjän käyttö estetään, THEN toiminto onnistuu ja käyttäjän käyttö muuttuu estetyksi.
+- [ ] #2 GIVEN käyttäjän käyttö on jo estetty ja kutsuja on hallintakäyttäjä, WHEN käyttäjän käyttö estetään uudelleen, THEN toiminto onnistuu idempotentisti.
+- [ ] #3 GIVEN käyttäjä löytyy, WHEN käyttäjän käyttö estetään, THEN sähköpostivahvistuksen tila ei muutu.
+- [ ] #4 GIVEN käyttäjää ei löydy ja kutsuja on hallintakäyttäjä, WHEN käyttäjän käyttöä yritetään estää, THEN toiminto hylätään puuttuvan käyttäjänä eikä uutta käyttäjää luoda.
+- [ ] #5 GIVEN kutsuja ei ole hallintakäyttäjä, WHEN käyttäjän käyttöä yritetään estää, THEN toiminto hylätään ennen käyttäjän muuttamista.
+- [ ] #6 GIVEN käytöstä poisto onnistuu tai epäonnistuu, WHEN vastaus ja lokit muodostetaan, THEN credential- tai vahvistussalaisuuksia ei palauteta, julkaista tai lokiteta.
 <!-- AC:END -->
-
-## Implementation Plan
-
-<!-- SECTION:PLAN:BEGIN -->
-Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
-
-- [Toteutustapa]
-- [Keskeiset tiedostot, rajapinnat tai komponentit]
-- [Testaus- ja varmistustapa]
-<!-- SECTION:PLAN:END -->
-
-## Implementation Notes
-
-<!-- SECTION:NOTES:BEGIN -->
-Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
-<!-- SECTION:NOTES:END -->
-
-## Final Summary
-
-<!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
-<!-- SECTION:FINAL_SUMMARY:END -->
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

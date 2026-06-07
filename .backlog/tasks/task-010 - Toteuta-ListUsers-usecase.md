@@ -1,16 +1,18 @@
 ---
 id: TASK-010
-title: Toteuta ListUsers-usecase
+title: 'Auth: Käyttäjien listaus'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:20'
-updated_date: '2026-06-07 10:08'
+updated_date: '2026-06-07 10:36'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
-  - TASK-002
+  - TASK-012
+  - TASK-013
+  - TASK-014
 references:
   - .backlog/decisions/*.md
   - .backlog/docs/intent/goal.md
@@ -23,51 +25,27 @@ ordinal: 9000
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
 ### MITÄ
-Toteuta Auth-kontekstin admin-listaus käyttäjäsummaryille.
+Toteuta Auth-kontekstin admin-listaus käyttäjäsummaryille hyväksyttyjen Auth-päätösten mukaisesti.
 
-- Tarjoa REST-rajapinta `GET /auth/users`.
-- Vaadi auktorisoinniksi `ADMIN`-rooli.
-- Hyväksy valinnaiset query-parametrit `limit` ja `cursor`.
-- Hae käyttäjäsummary-sivu `IUserRepository.list_users(limit, cursor)`-portin kautta ilman runtime-tauluskannausta.
-- Palauta tyhjä lista, kun käyttäjiä ei ole.
-- Älä palauta credential-, password hash- tai token-digest-kenttiä.
+- Vain hallintakäyttäjä voi listata käyttäjiä.
+- Listaus palauttaa rajatun ja sivutettavan käyttäjäsummaryn.
+- Tyhjä käyttäjäjoukko palautetaan tyhjänä listana.
+- Summary ei sisällä credential-, salasana- tai vahvistussalaisuuksiin liittyviä tietoja.
+- Salaisuuksia ei palauteta, julkaista tai lokiteta.
 
 ### MIKSI
-Admin-käyttäjän pitää pystyä tarkastelemaan käyttäjiä hallintaa varten ilman, että Authin salaiset tai credential-luonteiset kentät vuotavat API-vastaukseen. Rajattu ja sivutettu listaus sopii DynamoDB:n access pattern -reunaehtoihin paremmin kuin rajoittamaton tauluskannaus.
+Admin-käyttäjän pitää pystyä tarkastelemaan käyttäjiä hallintaa varten ilman, että Authin salaiset tai credential-luonteiset tiedot vuotavat. Rajattu ja sivutettava listaus pitää toiminnon hallittavana myös käyttäjämäärän kasvaessa.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 GIVEN users exist ja kutsuja roolilla `ADMIN`, WHEN `GET /auth/users` kutsutaan, THEN vastaus on `200 OK` ja sisältää käyttäjäsummaryjen listan.
-- [ ] #2 GIVEN no users ja kutsuja roolilla `ADMIN`, WHEN `GET /auth/users` kutsutaan, THEN vastaus on `200 OK` ja sisältää tyhjän listan.
-- [ ] #3 GIVEN kutsujan rooli ei ole `ADMIN`, WHEN list-users-usecasea kutsutaan, THEN pyyntö hylätään auktorisointivirheenä ennen käyttäjien hakua.
-- [ ] #4 GIVEN listaus suoritetaan, WHEN käyttäjät haetaan, THEN käytetään `IUserRepository.list_users(limit, cursor)`-porttia eikä käyttäjiä persistetä.
-- [ ] #5 GIVEN vastaus muodostetaan, WHEN käyttäjäsummaryt serialisoidaan, THEN yksikään item ei sisällä `password_hash`, `password_hash_algorithm`, `verification_token_digest`, `reset_password_token_digest`, plaintext-tokenia tai muuta credential-kenttää.
-- [ ] #6 GIVEN `limit` puuttuu tai ylittää sallitun ylärajan, WHEN listaus suoritetaan, THEN käytetään toteutuksessa määriteltyä turvallista oletus- tai maksimiarvoa ja palautetaan `next_cursor`, jos lisää tuloksia on saatavilla.
-- [ ] #7 GIVEN listaus onnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä credential- tai token-kenttiä lokiteta.
+- [ ] #1 GIVEN käyttäjiä on olemassa ja kutsuja on hallintakäyttäjä, WHEN käyttäjiä listataan, THEN toiminto palauttaa käyttäjäsummaryjen listan.
+- [ ] #2 GIVEN käyttäjiä ei ole ja kutsuja on hallintakäyttäjä, WHEN käyttäjiä listataan, THEN toiminto palauttaa tyhjän listan.
+- [ ] #3 GIVEN kutsuja ei ole hallintakäyttäjä, WHEN käyttäjiä yritetään listata, THEN toiminto hylätään ennen käyttäjien hakua.
+- [ ] #4 GIVEN käyttäjäsummary muodostetaan, WHEN listauksen tulos palautetaan, THEN yksikään käyttäjäsummary ei sisällä credential-, salasana- tai vahvistussalaisuuksiin liittyviä tietoja.
+- [ ] #5 GIVEN sivutuksen koko puuttuu tai ylittää hyväksytyn ylärajan, WHEN listaus suoritetaan, THEN käytetään hyväksytyissä Auth-päätöksissä määritettyä turvallista oletusta tai enimmäiskokoa ja ilmoitetaan, jos lisää tuloksia on saatavilla.
+- [ ] #6 GIVEN listaus onnistuu, WHEN vastaus ja lokit muodostetaan, THEN credential- tai vahvistussalaisuuksia ei palauteta, julkaista tai lokiteta.
 <!-- AC:END -->
-
-## Implementation Plan
-
-<!-- SECTION:PLAN:BEGIN -->
-Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
-
-- [Toteutustapa]
-- [Keskeiset tiedostot, rajapinnat tai komponentit]
-- [Testaus- ja varmistustapa]
-<!-- SECTION:PLAN:END -->
-
-## Implementation Notes
-
-<!-- SECTION:NOTES:BEGIN -->
-Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
-<!-- SECTION:NOTES:END -->
-
-## Final Summary
-
-<!-- SECTION:FINAL_SUMMARY:BEGIN -->
-Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
-<!-- SECTION:FINAL_SUMMARY:END -->
 
 ## Definition of Done
 <!-- DOD:BEGIN -->

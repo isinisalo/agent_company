@@ -4,13 +4,13 @@ title: 'Detail spec: Comments collection and query contract'
 status: To Do
 assignee: []
 created_date: '2026-06-07 11:23'
+updated_date: '2026-06-07 12:13'
 labels:
   - Comments
   - Spec
   - Backend
 milestone: m-3
 dependencies:
-  - TASK-014
   - TASK-017
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md

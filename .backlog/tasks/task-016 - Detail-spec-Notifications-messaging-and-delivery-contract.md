@@ -4,13 +4,13 @@ title: 'Detail spec: Notifications messaging and delivery contract'
 status: To Do
 assignee: []
 created_date: '2026-06-07 11:22'
+updated_date: '2026-06-07 12:13'
 labels:
   - Notifications
   - Spec
   - Backend
 milestone: m-3
-dependencies:
-  - TASK-014
+dependencies: []
 documentation:
   - .backlog/docs/intent/doc-001 - goal.md
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md

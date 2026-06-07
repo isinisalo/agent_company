@@ -18,3 +18,4 @@ AWS valitaan projektin serverless-alustaksi. Julkinen liikenne kulkee CloudFront
 - Lambda-funktiot saavat lukea vain tarvitsemansa parametrit ja salaisuudet, eikä salaisuuksia saa lokittaa.
 - Ajastetut ja tapahtumapohjaiset tausta-ajot mallinnetaan idempotenteiksi käsittelijöiksi.
 - Deploy- ja paikalliskehitysmallin tulee tukea SAM build-, testaus- ja deploy-virtoja.
+- Tuotantodeploy, uusi AWS-palvelu, laaja IAM-wildcard tai pysyvä konsolimuutos vaatii eksplisiittisen hyväksynnän.

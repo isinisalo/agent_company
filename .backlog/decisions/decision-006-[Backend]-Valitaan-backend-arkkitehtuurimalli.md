@@ -10,6 +10,8 @@ Backend tarvitsee rakenteen, joka tekee business-käsitteet näkyviksi ja erotta
 ## Decision
 Backend toteutetaan Hexagonal Architecture / Ports and Adapters -mallilla, paketoidaan Screaming Architecture -periaatteella ja business-logiikka mallinnetaan Domain Driven Design -periaatteilla.
 
+Projektin bounded contextit ovat Auth, Notifications, Companies and watchlist, Marketdata, Comments ja Scheduling.
+
 ## Consequences
 
 - Domain ja use caset pysyvät riippumattomina FastAPI:sta, AWS SDK:sta, PynamoDB:stä, Pydanticista ja muista ulkokerroksen kirjastoista.
@@ -17,4 +19,5 @@ Backend toteutetaan Hexagonal Architecture / Ports and Adapters -mallilla, paket
 - Pakettirakenteen tulee kuvata domainia ja käyttötapauksia, ei pelkkiä teknisiä kerroksia kuten `controllers`, `models` tai `services`.
 - Aggregatet vastaavat invariansseistaan, entityillä on identiteetti ja value objectit ovat muuttumattomia arvoja.
 - Domain ei saa sisältää HTTP-, AWS-, tietokanta- tai Pydantic-malleja.
+- Uusi bounded context, jaettu domain-paketti tai cross-context deletion -politiikka vaatii erillisen hyväksynnän.
 - Testaus voidaan kohdistaa domainiin ja use caseihin ilman infrastruktuuria.

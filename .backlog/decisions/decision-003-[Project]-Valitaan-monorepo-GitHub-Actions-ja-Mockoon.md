@@ -15,6 +15,7 @@ Repository toteutetaan monorepona, jonka top-level sovellusalueet ovat `backend/
 - Sovelluskoodi sijoitetaan vastuualueensa mukaiseen top-level-hakemistoon.
 - Uudet top-level sovellushakemistot, jaetut cross-area-paketit ja deployment-mallin muutokset vaativat uuden ADR:n.
 - Pull requestien tulee ajaa vähintään aluekohtaiset testit ja quality gate -tarkistukset.
+- Jos alueen tarkistuskomentoa ei ole määritetty, puute kirjataan rajoituksena eikä uutta toolchainia keksitä käyttötapaustaskissa.
 - AWS-julkaisut toteutetaan ensisijaisesti OIDC-pohjaisella GitHub Actions -luottamuksella ilman pitkäikäisiä AWS-avaimia.
 - Mockoon-konfiguraatiot versionhallitaan, mutta tuotantokoodi ei saa riippua Mockoonista.
 - Mockit eivät korvaa sopimusten tai integraatioiden varsinaista validointia.

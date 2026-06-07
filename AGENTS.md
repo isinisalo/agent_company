@@ -74,7 +74,6 @@ Before planning or implementation, read the minimum relevant context:
 
 - Project goal: `.backlog/docs/intent/doc-001 - goal.md`
 - Agent constraints: `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`
-- Bounded context map: `.backlog/docs/specs/doc-006 - bounded-context-map-and-glossary.md`
 - Accepted high-level ADRs: `.backlog/decisions/decision-001` through `.backlog/decisions/decision-008`
 - Relevant Backlog task and linked specs or ADRs
 - Existing code, tests, commands, and local conventions once application code

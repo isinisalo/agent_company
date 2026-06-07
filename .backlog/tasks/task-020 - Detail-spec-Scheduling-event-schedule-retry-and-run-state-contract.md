@@ -4,6 +4,7 @@ title: 'Detail spec: Scheduling event schedule retry and run-state contract'
 status: To Do
 assignee: []
 created_date: '2026-06-07 11:23'
+updated_date: '2026-06-07 12:13'
 labels:
   - Scheduling
   - Spec
@@ -11,7 +12,6 @@ labels:
   - Infra
 milestone: m-3
 dependencies:
-  - TASK-014
   - TASK-018
   - TASK-019
 documentation:

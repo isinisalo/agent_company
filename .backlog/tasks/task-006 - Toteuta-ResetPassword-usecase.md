@@ -4,7 +4,7 @@ title: 'Auth: Salasanan resetointipyyntö'
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 10:36'
+updated_date: '2026-06-07 10:57'
 labels:
   - Backend
   - Auth
@@ -19,6 +19,11 @@ references:
   - .backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md
   - >-
     https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html
+  - .backlog/decisions/decision-009 - Backend-Valitaan-Auth-domain-malli.md
+  - >-
+    .backlog/decisions/decision-010 -
+    Data-Valitaan-Auth-DynamoDB-tietokantarakenne.md
+  - .backlog/decisions/decision-011 - Backend-Valitaan-Auth-REST-API-sopimus.md
 priority: medium
 ordinal: 5000
 ---

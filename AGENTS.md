@@ -27,3 +27,87 @@ You MUST read the overview resource to understand the complete workflow. The inf
 </CRITICAL_INSTRUCTION>
 
 <!-- BACKLOG.MD MCP GUIDELINES END -->
+
+# Project Agent Instructions
+
+## Project Context
+
+This repository is the durable product and delivery record for `agent_company`.
+The product goal is defined in `.backlog/docs/intent/goal.md`. Approved
+architecture decisions are in `.backlog/decisions/`. Operational constraints for
+agent decisions are in `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`.
+
+The planned application is a monorepo with these application areas:
+
+- `backend/`: Python 3.14 FastAPI Lambda backend using ports and adapters.
+- `frontend/`: React TypeScript Vite SPA using Tailwind CSS and shadcn/ui.
+- `infra/`: AWS SAM infrastructure and local integration support such as Mockoon.
+
+Do not introduce a new top-level application directory, runtime, framework,
+database, cloud service, authentication model, or deployment model without a new
+accepted ADR.
+
+## Canonical Surfaces
+
+- Backlog.md is the durable source for tasks, specs, ADRs, acceptance criteria,
+  implementation plans, implementation notes, review evidence, deploy notes, and
+  final summaries.
+- Multica is the routing and handoff surface for agent assignments. Do not model
+  agent workflow phases as Backlog.md tasks.
+- Use Backlog.md MCP for `.backlog/docs`, tasks, and configuration. Use the
+  Backlog.md CLI only when the MCP surface does not expose the required Backlog
+  operation, such as creating ADR files.
+- Do not edit `.backlog` task or document Markdown by hand when an MCP or CLI
+  operation exists for the change.
+
+## Required Reading
+
+Before planning or implementation, read the minimum relevant context:
+
+- Project goal: `.backlog/docs/intent/goal.md`
+- Agent constraints: `.backlog/docs/governance/Agenttien päätöksenteon reunaehdot.md`
+- Accepted ADRs: `.backlog/decisions/*.md`
+- Relevant Backlog task and linked specs or ADRs
+- Existing code, tests, commands, and local conventions once application code
+  exists
+
+## Stop Rules
+
+Stop and ask for a decision or record `Blocked` when a change would:
+
+- conflict with an accepted ADR or the project goal
+- add a new AWS service, library, runtime, top-level application directory, public
+  API contract, authentication model, or production data source
+- require production deploy, production data, credentials, secrets, cloud
+  permissions, or external-service terms that are not documented
+- change Auth domain, DynamoDB, or REST behavior without accepted Auth ADRs
+- expose passwords, token plaintext, token digests, API keys, JWTs, PII, or raw
+  external-service credentials in logs, events, API responses, fixtures, or docs
+- require guessing a business rule, retention rule, legal/compliance rule,
+  investment-advice boundary, or cross-context deletion policy
+
+## Validation Defaults
+
+Run the narrowest relevant checks for the touched area. If an area has no
+configured commands yet, record that as a limitation instead of inventing a new
+toolchain.
+
+- Backend checks must cover domain/use case tests without AWS dependencies,
+  Ruff, mypy, and adapter tests with mocks when relevant.
+- Frontend checks must cover ESLint, unit tests, and Playwright for user-visible
+  high-value flows when relevant.
+- Infra checks must cover SAM template validation and least-privilege IAM review
+  when infrastructure is touched.
+- Every completed task must include validation evidence or an explicit reason the
+  validation is not yet runnable.
+
+## Definition of Done
+
+A Backlog task is ready for completion only when:
+
+- acceptance criteria have been verified against the implemented scope
+- relevant checks have passed or the missing command/environment is documented
+- secrets, tokens, credentials, and PII are not exposed
+- public API, data, infrastructure, and operation contracts are updated when
+  changed
+- `Final Summary` records the outcome, validation, and remaining limitations

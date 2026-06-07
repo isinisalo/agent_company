@@ -4,13 +4,16 @@ title: Toteuta RegisterUser-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 08:57'
+updated_date: '2026-06-07 09:38'
 labels:
   - Backend
   - Auth
 milestone: m-1
 dependencies:
   - TASK-002
+references:
+  - >-
+    .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
 documentation:
   - >-
     .backlog/decisions/decision-009-[Backend]-Määritetään-Auth-bounded-context-ja-usecase-sopimukset.md
@@ -46,12 +49,31 @@ Rekisteröinti käynnistää käyttäjän elinkaaren ilman admin-toimenpidettä.
 - [ ] #6 GIVEN rekisteröinnin feature flag puuttuu, on lukukelvoton tai on `false`, WHEN `POST /auth/register` kutsutaan, THEN rekisteröinti hylätään hallitulla virheellä eikä käyttäjää persistetä.
 - [ ] #7 GIVEN pyynnön email, name tai password ei täytä ADR-009:n sääntöjä, WHEN rekisteröintiä yritetään, THEN pyyntö hylätään validointivirheenä ennen persistointia.
 <!-- AC:END -->
-
-
-
 ## Definition of Done
 <!-- DOD:BEGIN -->
 - [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
 - [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
 - [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
 <!-- DOD:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
+
+- [Toteutustapa]
+- [Keskeiset tiedostot, rajapinnat tai komponentit]
+- [Testaus- ja varmistustapa]
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
+<!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
+<!-- SECTION:FINAL_SUMMARY:END -->

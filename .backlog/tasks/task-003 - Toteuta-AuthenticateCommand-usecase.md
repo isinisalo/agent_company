@@ -4,7 +4,7 @@ title: Toteuta Login-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:18'
-updated_date: '2026-06-07 08:56'
+updated_date: '2026-06-07 09:37'
 labels:
   - Backend
   - Auth
@@ -46,12 +46,31 @@ Kirjautuminen on selaimen ja API:n perusvirta. Usecase varmistaa, että API-toke
 - [ ] #4 GIVEN pyyntö ei sisällä validia emailia tai salasanaa, WHEN `POST /auth/token` kutsutaan, THEN pyyntö hylätään validointivirheenä ennen salasanatarkistusta.
 - [ ] #5 GIVEN autentikointi epäonnistuu tai onnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä salasanaa, password hashia, JWT:tä tai salaisia avaimia lokiteta.
 <!-- AC:END -->
-
-
-
 ## Definition of Done
 <!-- DOD:BEGIN -->
 - [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
 - [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
 - [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
 <!-- DOD:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
+
+- [Toteutustapa]
+- [Keskeiset tiedostot, rajapinnat tai komponentit]
+- [Testaus- ja varmistustapa]
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
+<!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
+<!-- SECTION:FINAL_SUMMARY:END -->

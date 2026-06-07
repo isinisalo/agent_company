@@ -4,7 +4,7 @@ title: Toteuta RequestPasswordReset-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 08:57'
+updated_date: '2026-06-07 09:38'
 labels:
   - Backend
   - Auth
@@ -48,12 +48,31 @@ Resetointipyynnön pitää mahdollistaa tilin palautus ilman kirjautumista mutta
 - [ ] #5 GIVEN pyyntö ei sisällä validia emailia, WHEN resetointipyyntöä yritetään, THEN pyyntö hylätään validointivirheenä ennen käyttäjähakua.
 - [ ] #6 GIVEN resetointipyyntö onnistuu tai käyttäjää ei löydy, WHEN vastaus ja lokit muodostetaan, THEN järjestelmä ei paljasta käyttäjän olemassaoloa eikä palauta tai lokita plaintext-tokenia tai token-digestiä.
 <!-- AC:END -->
-
-
-
 ## Definition of Done
 <!-- DOD:BEGIN -->
 - [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
 - [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
 - [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
 <!-- DOD:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
+
+- [Toteutustapa]
+- [Keskeiset tiedostot, rajapinnat tai komponentit]
+- [Testaus- ja varmistustapa]
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
+<!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
+<!-- SECTION:FINAL_SUMMARY:END -->

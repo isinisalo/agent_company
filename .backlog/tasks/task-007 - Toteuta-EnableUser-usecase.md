@@ -4,7 +4,7 @@ title: Toteuta EnableUser-usecase
 status: To Do
 assignee: []
 created_date: '2026-06-06 08:19'
-updated_date: '2026-06-07 08:58'
+updated_date: '2026-06-07 09:38'
 labels:
   - Backend
   - Auth
@@ -45,12 +45,31 @@ Adminin pitää pystyä palauttamaan käyttäjätilin käyttöoikeus ilman, ett�
 - [ ] #5 GIVEN kutsujan rooli ei ole `ADMIN`, WHEN enable-usecasea kutsutaan, THEN pyyntö hylätään auktorisointivirheenä ennen käyttäjän päivittämistä.
 - [ ] #6 GIVEN aktivointi onnistuu tai epäonnistuu, WHEN vastaus ja lokit muodostetaan, THEN domain-tapahtumia ei julkaista eikä credential- tai token-kenttiä lokiteta.
 <!-- AC:END -->
-
-
-
 ## Definition of Done
 <!-- DOD:BEGIN -->
 - [ ] #1 Käyttäjän määrittelemät Spec by Example -esimerkit on huomioitu toteutuksessa.
 - [ ] #2 Toteutus on testattu tehtävän acceptance criteria -kohtia vasten.
 - [ ] #3 Toteutuksen lopputulos ja mahdolliset rajaukset on kirjattu Final Summary -osioon.
 <!-- DOD:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+Agentti täyttää tähän MITEN tehtävä toteutetaan käyttäjän määrittelemien kohtien MITÄ, MIKSI ja ESIMERKIT perusteella.
+
+- [Toteutustapa]
+- [Keskeiset tiedostot, rajapinnat tai komponentit]
+- [Testaus- ja varmistustapa]
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Agentti kirjaa tähän toteutuksen aikaiset havainnot, päätökset ja mahdolliset poikkeamat suunnitelmasta.
+<!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Agentti kirjaa tähän loppuyhteenvedon, kun tehtävä on valmis.
+<!-- SECTION:FINAL_SUMMARY:END -->

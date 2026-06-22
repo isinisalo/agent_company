@@ -32,6 +32,7 @@ Järjestelmän tavoitealueet ovat:
 - Markkinadata: seurattavien yritysten EODHD-markkinadatan haku, yhdenmukaistaminen, tallennus, lähdeattribuutio ja näyttäminen.
 - Keskusteluaineisto: yrityskohtaisesti rajatun Inderes Forum -keskusteluaineiston haku, deduplikointi, tallennus, lähdeattribuutio ja näyttäminen.
 - Tiedonkeruun ajastus: yrityskohtaisten EODHD- ja Inderes Forum -keruiden tiheyden määrittäminen, erääntyneiden keruiden käynnistäminen ja keruutilan näyttäminen.
+- Tuotteen UX: moderni, nopea ja helppokäyttöinen web-sovellus, jossa käyttäjä löytää yritysseurannan olennaiset tiedot ilman turhaa kitkaa.
 
 Osa-alueiden tavoitteet ovat näissä dokumenteissa:
 
@@ -42,6 +43,7 @@ Osa-alueiden tavoitteet ovat näissä dokumenteissa:
 - `specs/goals/goal-008 - Markkinadata.md`
 - `specs/goals/goal-009 - Keskusteluaineisto.md`
 - `specs/goals/goal-010 - Tiedonkeruun-ajastus.md`
+- `specs/goals/goal-011 - Tuotteen-UX.md`
 
 ## PRODUCT LIMITS
 

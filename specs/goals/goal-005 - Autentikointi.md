@@ -13,23 +13,26 @@ tags:
 
 ## GOAL
 
-Tarjoa turvallinen käyttäjäidentiteetin ja käyttöoikeuden perusta, jonka avulla palvelu voi erottaa rekisteröityneen käyttäjän, kirjautuneen käyttäjän ja hallintakäyttäjän.
+Tarjoa yritysseurantapalvelulle käyttäjäidentiteetin ja käyttöoikeuden perusta.
+
+Käyttäjän pitää voida rekisteröityä, vahvistaa sähköpostinsa, kirjautua sisään, palauttaa unohtunut salasana ja käyttää vain niitä palvelun osia, joihin hänellä on oikeus. Hallintakäyttäjän pitää voida hallita käyttäjien käyttötilaa.
 
 ## INTENT
 
-Autentikoinnin tulee mahdollistaa palvelun käyttö ilman, että käyttäjän olemassaolo, salaisuudet tai arkaluonteinen käyttöoikeustieto vuotavat asiattomasti.
+Autentikointi suojaa yritysseurantapalvelun käyttäjäkohtaiset tiedot ja hallintatoiminnot. Muiden tuotealueiden pitää voida luottaa siihen, että käyttäjän tunnistaminen, käyttötila ja roolit ovat yksiselitteisiä.
 
-Muiden palvelun osien tulee voida luottaa siihen, että käyttäjän tunnistaminen, käyttötila ja roolit ovat selkeitä ja turvallisia.
+Autentikointi ei saa paljastaa asiattomasti käyttäjän olemassaoloa, salaisuuksia, salasanan palautukseen liittyviä salaisuuksia tai roolitietoja.
 
 ## CAPABILITIES
 
-- Käyttäjän rekisteröinti hyväksytyillä syötteillä ja turvallisilla oletusrooleilla.
-- Kirjautuminen tunnisteella ja salasanalla, kun käyttäjä on kirjautumiskelpoinen.
-- Sähköpostivahvistus kertakäyttöisellä ja vanhenevalla vahvistuksella.
-- Salasanan resetointipyyntö, joka ei paljasta käyttäjän olemassaoloa.
-- Salasanan resetoinnin vahvistus kertakäyttöisellä ja vanhenevalla salaisuudella.
-- Hallintakäyttäjän käyttäjähallinta: käyttäjän käyttöönotto, käytöstä poisto, poisto ja listaus.
+- Rekisteröityminen hyväksytyillä käyttäjätiedoilla ja turvallisella oletuskäyttöoikeudella.
+- Kirjautuminen vain kirjautumiskelpoiselle käyttäjälle.
+- Sähköpostiosoitteen vahvistaminen ennen niiden toimintojen käyttöä, jotka vaativat vahvistetun käyttäjän.
+- Salasanan palautuksen pyytäminen ilman, että pyyntö paljastaa onko käyttäjä olemassa.
+- Salasanan vaihtaminen hyväksytyn palautusvahvistuksen perusteella.
+- Rekisteröityneen, kirjautuneen ja hallintakäyttäjän erottaminen palvelun muille osille.
+- Hallintakäyttäjän käyttäjähallinta: käyttäjien listaus, käyttöönotto, käytöstä poisto ja poisto hyväksyttyjen rajojen mukaisesti.
 
 ## EVIDENCE
 
-Autentikointi etenee oikeaan suuntaan, kun käyttäjä voi rekisteröityä, kirjautua, vahvistaa sähköpostinsa, palauttaa salasanansa ja saada oikean käyttöoikeuden ilman arkaluonteisen tiedon vuotoa.
+Tavoite täyttyy, kun käyttäjä voi kulkea rekisteröinnistä vahvistettuun kirjautuneeseen käyttöön, palauttaa salasanansa ja saada oikean käyttöoikeuden, ja kun hallintakäyttäjä voi hallita käyttäjän käyttötilaa ilman arkaluonteisen tiedon vuotoa.

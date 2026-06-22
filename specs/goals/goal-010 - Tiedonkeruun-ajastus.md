@@ -13,21 +13,25 @@ tags:
 
 ## GOAL
 
-Tarjoa hallittu ajastuskyvykkyys, joka käynnistää yrityskohtaista tiedonkeruuta ajallaan, tallentaa keruun tilan ja estää puutteellisesti hyväksytyn tuotantokeruun.
+Tarjoa hallittu ajastuskyvykkyys yrityskohtaiselle tiedonkeruulle.
+
+Käyttäjän tai ylläpidon pitää voida määrittää kuinka usein seurattavan yrityksen EODHD-markkinadata ja Inderes Forum -keskusteluaineisto haetaan. Palvelun pitää näyttää milloin keruu viimeksi onnistui tai epäonnistui, mitä lähdettä keruu koski ja milloin seuraava keruu erääntyy.
 
 ## INTENT
 
-Tiedonkeruun ajastuksen tulee tehdä keruista toistettavia, seurattavia ja käyttäjälle ymmärrettäviä. Sen tulee auttaa käyttäjää ja ylläpitäjää näkemään, milloin tietoa on kerätty, mikä onnistui ja mikä vaatii huomiota.
+Tiedonkeruun ajastus tekee yrityskohtaisista keruista toistettavia, seurattavia ja käyttäjälle ymmärrettäviä. Se ei päätä miten EODHD-markkinadata tai Inderes Forum -aineisto tulkitaan, vaan huolehtii siitä, että hyväksytyt keruut käynnistyvät oikeaan aikaan ja niiden tila näkyy.
+
+Kun keruu epäonnistuu, käyttäjän ja ylläpidon pitää nähdä turvallinen tilatieto ilman raw-virhettä, salaisuuksia tai päällekkäisten keruiden aiheuttamaa epäselvyyttä.
 
 ## CAPABILITIES
 
-- Keruuajastuksen määrittäminen seurattavalle yritykselle tai yritysjoukolle.
-- Erääntyneen keruun käynnistäminen hallitusti.
-- Keruun tuloksen, lähteen, hakuajankohdan, turvallisen virheluokan ja seuraavan tilan tallennus.
-- Tilapäisesti epäonnistuneen keruun uusi käsittely hyväksyttyjen rajojen sisällä.
-- Epäonnistuneen keruun tilan tallennus silloin, kun keruu ei voi jatkua.
-- Puutteellisesti hyväksytyn tuotantokeruun esto.
+- Yrityskohtaisen EODHD-markkinadatakeruun tiheyden ja seuraavan erääntymisen määrittäminen.
+- Yrityskohtaisen Inderes Forum -keskustelukeruun tiheyden ja seuraavan erääntymisen määrittäminen.
+- Erääntyneen keruun käynnistäminen hallitusti ilman hallitsemattomia päällekkäisiä ajoja.
+- Keruun lähteen, käynnistysajan, lopputuloksen, viimeisimmän onnistumisen, viimeisimmän epäonnistumisen ja seuraavan tilan tallennus.
+- Tilapäisesti epäonnistuneen keruun uudelleenkäsittely hyväksyttyjen rajojen sisällä.
+- Pysyvästi epäonnistuneen tai käyttäjän huomiota vaativan keruun näyttäminen erillisenä tilana.
 
 ## EVIDENCE
 
-Tiedonkeruun ajastus etenee oikeaan suuntaan, kun keruu voidaan ajastaa, käynnistää, kirjata onnistuneeksi tai epäonnistuneeksi ja näyttää käyttäjälle ilman hallitsemattomia päällekkäisiä keruita.
+Tavoite täyttyy, kun seurattavalle yritykselle voidaan asettaa EODHD- ja Inderes Forum -keruiden tiheys, erääntynyt keruu käynnistyy hallitusti, lopputulos kirjataan onnistuneeksi tai epäonnistuneeksi ja käyttäjä näkee viimeisimmän keruun sekä seuraavan erääntymisen ilman hallitsemattomia päällekkäisiä keruita.

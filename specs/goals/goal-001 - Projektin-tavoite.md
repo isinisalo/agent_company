@@ -12,15 +12,15 @@ tags:
 
 ## GOAL
 
-Rakenna selainkäyttöinen palvelu, jossa käyttäjä voi seurata suomalaisia yrityksiä ja nähdä samassa näkymässä yrityksen perustiedot, markkinadatan, yritykseen liittyvän keskusteluaineiston ja tiedonkeruun tilan.
+Rakenna selainkäyttöinen yritysseurantapalvelu suomalaisille yrityksille.
 
-Palvelun onnistunut lopputila on, että seurattava yritys lisätään järjestelmään kerran, minkä jälkeen järjestelmä kerää, tallentaa, attribuoi ja näyttää yritykseen liittyvän tiedon ilman, että käyttäjän täytyy hakea sama tieto käsin erillisistä lähteistä.
+Käyttäjä lisää yrityksen seurannan kohteeksi kerran. Sen jälkeen palvelu näyttää yrityksen koontinäkymässä perustiedot, EODHD-markkinadatan, Inderes Forum -keskusteluaineiston ja tiedonkeruun tilan niin, ettei käyttäjän tarvitse hakea samaa tietoa käsin erillisistä lähteistä.
 
 ## INTENT
 
-Agenttien tulee tehdä ratkaisuja kohti keskitettyä yritysseurantapalvelua, ei yleistä CRM:ää, sijoitusneuvontatyökalua, yritysrekisteriä tai sosiaalisen median keräintä.
+Agenttien tulee tehdä ratkaisuja kohti keskitettyä yritysseurantapalvelua. Palvelu ei ole yleinen CRM, yritysrekisteri, sijoitusneuvontatyökalu, kaupankäyntipalvelu eikä yleinen sosiaalisen median keräin.
 
-Palvelun tulee priorisoida jäljitettävää tiedonkeruuta, lähdeattribuutiota, turvallista käyttäjähallintaa ja hallittua siirtymää oikeaan tuotantokäyttöön.
+Kun agentti joutuu valitsemaan kattavuuden ja jäljitettävyyden välillä, jäljitettävyys voittaa. Käyttäjän pitää nähdä mistä tieto on peräisin, milloin se on haettu ja mitä keruun tilasta voidaan päätellä.
 
 ## PRODUCT SCOPE
 
@@ -28,10 +28,10 @@ Järjestelmän tavoitealueet ovat:
 
 - Autentikointi: käyttäjän rekisteröinti, kirjautuminen, sähköpostivahvistus, salasanan resetointi ja hallintakäyttäjän käyttäjähallinta.
 - Viestintä: käyttäjälle tarkoitettujen viestien muodostaminen, kirjaaminen ja toimitustilan näyttäminen.
-- Yritysseuranta: seurattavat yritykset, yritysten perustiedot ja käyttäjän seuranta-asetukset.
-- Markkinadata: seurattavien yritysten markkinadatan haku, yhdenmukaistaminen, tallennus ja näyttäminen.
-- Keskusteluaineisto: yrityksiin liittyvän keskusteluaineiston haku, deduplikointi, tallennus ja näyttäminen.
-- Tiedonkeruun ajastus: yrityskohtaisten tiedonkeruiden ajastaminen, tilan näyttäminen ja puutteellisesti hyväksytyn tuotantokeruun estäminen.
+- Yritysseuranta: seurattavat suomalaiset yritykset, yritysten tunnisteet, PRH/YTJ-perustiedot ja käyttäjän seuranta-asetukset.
+- Markkinadata: seurattavien yritysten EODHD-markkinadatan haku, yhdenmukaistaminen, tallennus, lähdeattribuutio ja näyttäminen.
+- Keskusteluaineisto: yrityskohtaisesti rajatun Inderes Forum -keskusteluaineiston haku, deduplikointi, tallennus, lähdeattribuutio ja näyttäminen.
+- Tiedonkeruun ajastus: yrityskohtaisten EODHD- ja Inderes Forum -keruiden tiheyden määrittäminen, erääntyneiden keruiden käynnistäminen ja keruutilan näyttäminen.
 
 Osa-alueiden tavoitteet ovat näissä dokumenteissa:
 
@@ -47,7 +47,8 @@ Osa-alueiden tavoitteet ovat näissä dokumenteissa:
 
 - Järjestelmä ei tuota sijoitusneuvontaa, osto- tai myyntisuosituksia, automaattisia kaupankäyntipäätöksiä eikä kaupankäyntitoiminnallisuutta.
 - Reaaliaikainen jatkuva markkinadatavirta ei kuulu alkuvaiheen tavoitteeseen.
+- Inderes Forum -aineisto rajataan seurattavaan yritykseen liittyvään keskusteluun; palvelusta ei tehdä yleistä keskusteluarkistoa.
 
 ## EVIDENCE
 
-Tavoite etenee oikeaan suuntaan, kun seurattavan yrityksen lisääminen, tiedon keruu, lähdeattribuoitu tallennus, selaimessa näkyvä koontinäkymä, käyttäjän turvallinen käyttöoikeus ja hallittu tuotantokäytön rajaus toimivat ilman arkaluonteisen tiedon vuotoa.
+Tavoite on oikealla suunnalla, kun kirjautunut käyttäjä voi lisätä seurattavan suomalaisen yrityksen ja nähdä samasta selainnäkymästä yrityksen perustiedot, markkinadatan, keskusteluaineiston, lähteet, hakuajankohdat ja tiedonkeruun viimeisimmän tilan ilman arkaluonteisen tiedon vuotoa.

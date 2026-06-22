@@ -13,20 +13,24 @@ tags:
 
 ## GOAL
 
-Tarjoa seurattavalle yritykselle lähdeattribuoitu markkinadatanäkymä, joka auttaa käyttäjää hahmottamaan yrityksen markkinatilannetta.
+Tarjoa seurattavalle yritykselle EODHD-lähteeseen perustuva markkinadatanäkymä.
+
+Käyttäjän pitää nähdä yrityksen markkinatilanne ymmärrettävänä yhteenvetona, jossa näkyy mistä tieto on peräisin ja milloin se on haettu.
 
 ## INTENT
 
-Markkinadatan tulee olla jäljitettävää, turvallisesti katseltavaa ja yritysseurantaan riittävää ilman sijoitusneuvontaa tai kaupankäyntitoiminnallisuutta.
+Markkinadatan tarkoitus on antaa käyttäjälle konteksti seurattavan yrityksen markkinatilanteesta yritysseurannan yhteydessä. Sen tulee olla jäljitettävää, turvallisesti katseltavaa ja riittävän yhdenmukaista, jotta eri yrityksiä voidaan seurata samalla käyttökokemuksella.
+
+Markkinadata ei saa muuttua sijoitusneuvonnaksi, osto- tai myyntisuositukseksi, automaattiseksi kaupankäyntipäätökseksi tai kaupankäyntitoiminnallisuudeksi.
 
 ## CAPABILITIES
 
-- Markkinadatan haku seurattavalle yritykselle.
-- Markkinadatan yhdenmukaistaminen käyttäjälle ymmärrettävään muotoon.
-- Markkinadatan tallennus lähdeattribuutiolla ja hakuajankohdalla.
+- EODHD-markkinadatan haku seurattavalle yritykselle yritysseurannan antaman rajauksen perusteella.
+- Markkinadatan yhdenmukaistaminen yritysseurannan käyttäjälle ymmärrettävään muotoon.
+- Markkinadatan tallennus EODHD-lähdeattribuutiolla ja hakuajankohdalla.
 - Yrityksen markkinadatan rajattu näyttäminen käyttäjän oikeuksien mukaan.
-- Lähdevirheiden ja päällekkäisen tiedon turvallinen käsittely.
+- Lähdevirheiden, tyhjien tulosten ja päällekkäisen tiedon turvallinen esittäminen käyttäjälle.
 
 ## EVIDENCE
 
-Markkinadata etenee oikeaan suuntaan, kun käyttäjä näkee seurattavan yrityksen markkinadatasta ymmärrettävän, lähdeattribuoidun ja ajantasaisuuden osoittavan yhteenvedon ilman sijoitusneuvontaa.
+Tavoite täyttyy, kun käyttäjä näkee seurattavan yrityksen EODHD-markkinadatasta lähdeattribuoidun yhteenvedon, hakuajankohdan ja ajantasaisuuden tilan ilman sijoitusneuvontaa tai kaupankäyntitoiminnallisuutta.

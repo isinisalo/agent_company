@@ -13,20 +13,25 @@ tags:
 
 ## GOAL
 
-Tarjoa seurattavalle yritykselle rajattu ja lähdeattribuoitu keskusteluaineistonäkymä.
+Tarjoa seurattavalle yritykselle Inderes Forum -keskusteluaineistonäkymä, joka on rajattu yrityskohtaisesti.
+
+Käyttäjän pitää nähdä yritykseen liittyvä keskustelu koottuna, deduplikoituna ja lähdeattribuoituna niin, että aineiston alkuperä ja hakuajankohta ovat ymmärrettäviä.
 
 ## INTENT
 
-Keskusteluaineiston tulee auttaa käyttäjää seuraamaan yritykseen liittyvää keskustelua ilman, että palvelusta tulee yleinen sosiaalisen median keräin. Kerätyn aineiston tulee olla deduplikoitua, jatkettavasti kerättävää, lähteeseen attribuoitua ja hyväksyttyjen käsittelyrajojen mukaista.
+Keskusteluaineiston tarkoitus on auttaa käyttäjää seuraamaan mitä seurattavasta yrityksestä keskustellaan Inderes Forumissa. Palvelu ei saa muuttua yleiseksi keskustelu-, some- tai käyttäjäprofiilien keräimeksi.
+
+Keruun tulee olla jatkettavaa: kun samaa yritystä kerätään uudelleen, palvelun pitää tunnistaa mitä on jo käsitelty ja mitä uutta voidaan lisätä käyttäjän näkymään.
 
 ## CAPABILITIES
 
-- Yritykseen liittyvän keskusteluaineiston haku hyväksytyn yrityskohtaisen rajauksen perusteella.
-- Keskusteluaineiston yhdenmukaistaminen käyttäjälle ymmärrettävään muotoon.
-- Keskusteluaineiston deduplikointi ja tallennus lähdeattribuutiolla ja hakuajankohdalla.
+- Inderes Forum -keskusteluaineiston haku hyväksytyn yrityskohtaisen topic-rajauksen perusteella.
+- Keskusteluaineiston yhdenmukaistaminen käyttäjälle ymmärrettävään yrityskeskustelunäkymään.
+- Keskusteluaineiston deduplikointi ja tallennus Inderes Forum -lähdeattribuutiolla ja hakuajankohdalla.
 - Yrityksen keskusteluaineiston rajattu näyttäminen käyttäjän oikeuksien mukaan.
 - Keruun jatkumisen seuranta niin, että samaa aineistoa ei käsitellä hallitsemattomasti uudelleen.
+- Tyhjän, epäonnistuneen tai lähteen rajaaman keruun näyttäminen käyttäjälle turvallisena tilana.
 
 ## EVIDENCE
 
-Keskusteluaineisto etenee oikeaan suuntaan, kun käyttäjä näkee seurattavaan yritykseen liittyvän rajatun, deduplikoidun ja lähdeattribuoidun keskusteluaineiston ilman tarpeettoman arkaluonteisen tiedon tallentamista tai näyttämistä.
+Tavoite täyttyy, kun käyttäjä näkee seurattavaan yritykseen liittyvän Inderes Forum -aineiston rajattuna, deduplikoituna, jatkettavasti kerättynä ja lähdeattribuoituna ilman tarpeettoman arkaluonteisen tiedon tallentamista tai näyttämistä.

@@ -1,5 +1,5 @@
 ---
-id: adr-009
+id: adr-011
 title: Valitaan päätöshierarkia ja agentin päätösvalta
 date: '2026-06-07'
 status: accepted

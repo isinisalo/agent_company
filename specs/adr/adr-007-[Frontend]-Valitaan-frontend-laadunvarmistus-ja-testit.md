@@ -1,5 +1,5 @@
 ---
-id: adr-005
+id: adr-007
 title: Valitaan frontend-laadunvarmistus ja testit
 date: '2026-06-06'
 status: accepted

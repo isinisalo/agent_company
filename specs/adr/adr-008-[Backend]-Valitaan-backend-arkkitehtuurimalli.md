@@ -1,5 +1,5 @@
 ---
-id: adr-006
+id: adr-008
 title: Valitaan backend-arkkitehtuurimalli
 date: '2026-06-06'
 status: accepted

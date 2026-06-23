@@ -1,0 +1,50 @@
+adrs:
+  - id: adr-001
+    title: Valitaan AWS serverless-alustaksi
+    status: accepted
+    path: "specs/adr/adr-001-[Infra]-Valitaan-AWS-serverless-alustaksi.md"
+  - id: adr-002
+    title: Valitaan DynamoDB ja ulkoiset datalähteet
+    status: accepted
+    path: "specs/adr/adr-002-[Data]-Valitaan-DynamoDB-ja-ulkoiset-datalahteet.md"
+  - id: adr-003
+    title: Valitaan monorepo
+    status: accepted
+    path: "specs/adr/adr-003-[Project]-Valitaan-monorepo.md"
+  - id: adr-004
+    title: Valitaan GitHub Actions CI/CD-putkeksi
+    status: accepted
+    path: "specs/adr/adr-004-[Project]-Valitaan-GitHub-Actions-CI-CD-putkeksi.md"
+  - id: adr-005
+    title: Valitaan Mockoon paikallisiin REST-mockeihin
+    status: accepted
+    path: "specs/adr/adr-005-[Project]-Valitaan-Mockoon-paikallisiin-REST-mockeihin.md"
+  - id: adr-006
+    title: Valitaan React, Vite, Tailwind CSS ja shadcn/ui
+    status: accepted
+    path: "specs/adr/adr-006-[Frontend]-Valitaan-React-Vite-Tailwind-ja-shadcn-ui.md"
+  - id: adr-007
+    title: Valitaan frontend-laadunvarmistus ja testit
+    status: accepted
+    path: "specs/adr/adr-007-[Frontend]-Valitaan-frontend-laadunvarmistus-ja-testit.md"
+  - id: adr-008
+    title: Valitaan backend-arkkitehtuurimalli
+    status: accepted
+    path: "specs/adr/adr-008-[Backend]-Valitaan-backend-arkkitehtuurimalli.md"
+  - id: adr-009
+    title: Valitaan backend-runtime ja kirjastopino
+    status: accepted
+    path: "specs/adr/adr-009-[Backend]-Valitaan-backend-runtime-ja-kirjastopino.md"
+  - id: adr-010
+    title: Valitaan JWT-pohjainen API-autentikointi
+    status: accepted
+    path: "specs/adr/adr-010-[Backend]-Valitaan-JWT-pohjainen-API-autentikointi.md"
+  - id: adr-011
+    title: Varattu numeroaukko
+    status: reserved
+    path: null
+    note: "Numeroaukko. Tälle tunnisteelle ei ole hyväksyttyä ADR-dokumenttia tässä repossa."
+  - id: adr-012
+    title: Valitaan ulkoisten palveluiden integraatiorajat
+    status: accepted
+    path: "specs/adr/adr-012-[Data]-Valitaan-ulkoisten-palveluiden-integraatiorajat.md"

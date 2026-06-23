@@ -1,0 +1,47 @@
+goals:
+  - id: goal-001
+    title: Projektin tavoite
+    status: accepted
+    path: "specs/goals/goal-001 - Projektin-tavoite.md"
+  - id: goal-002
+    title: Varattu numeroaukko
+    status: reserved
+    path: null
+    note: "Numeroaukko. Tälle tunnisteelle ei ole hyväksyttyä Goal-dokumenttia tässä repossa."
+  - id: goal-003
+    title: Varattu numeroaukko
+    status: reserved
+    path: null
+    note: "Numeroaukko. Tälle tunnisteelle ei ole hyväksyttyä Goal-dokumenttia tässä repossa."
+  - id: goal-004
+    title: Projektin ohjaus
+    status: accepted
+    path: "specs/goals/goal-004 - Projektin-ohjaus.md"
+  - id: goal-005
+    title: Autentikointi
+    status: accepted
+    path: "specs/goals/goal-005 - Autentikointi.md"
+  - id: goal-006
+    title: Viestintä
+    status: accepted
+    path: "specs/goals/goal-006 - Viestinta.md"
+  - id: goal-007
+    title: Yritysseuranta
+    status: accepted
+    path: "specs/goals/goal-007 - Yritysseuranta.md"
+  - id: goal-008
+    title: Markkinadata
+    status: accepted
+    path: "specs/goals/goal-008 - Markkinadata.md"
+  - id: goal-009
+    title: Keskusteluaineisto
+    status: accepted
+    path: "specs/goals/goal-009 - Keskusteluaineisto.md"
+  - id: goal-010
+    title: Tiedonkeruun ajastus
+    status: accepted
+    path: "specs/goals/goal-010 - Tiedonkeruun-ajastus.md"
+  - id: goal-011
+    title: Tuotteen UX
+    status: accepted
+    path: "specs/goals/goal-011 - Tuotteen-UX.md"

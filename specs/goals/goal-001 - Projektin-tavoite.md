@@ -41,13 +41,13 @@ Järjestelmän tavoitealueet ovat:
 
 Osa-alueiden tavoitteet ovat näissä dokumenteissa:
 
-- `specs/goals/goal-005 - Autentikointi.md`
-- `specs/goals/goal-006 - Viestinta.md`
-- `specs/goals/goal-007 - Yritysseuranta.md`
-- `specs/goals/goal-008 - Markkinadata.md`
-- `specs/goals/goal-009 - Keskusteluaineisto.md`
-- `specs/goals/goal-010 - Tiedonkeruun-ajastus.md`
-- `specs/goals/goal-011 - Tuotteen-UX.md`
+- `specs/goals/goal-002 - Autentikointi.md`
+- `specs/goals/goal-003 - Viestinta.md`
+- `specs/goals/goal-004 - Yritysseuranta.md`
+- `specs/goals/goal-005 - Markkinadata.md`
+- `specs/goals/goal-006 - Keskusteluaineisto.md`
+- `specs/goals/goal-007 - Tiedonkeruun-ajastus.md`
+- `specs/goals/goal-008 - Tuotteen-UX.md`
 
 ## PRODUCT LIMITS
 

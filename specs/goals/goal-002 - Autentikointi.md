@@ -1,5 +1,5 @@
 ---
-id: goal-005
+id: goal-002
 title: Autentikointi
 type: other
 created_date: '2026-06-07 12:35'

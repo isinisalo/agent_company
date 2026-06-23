@@ -1,5 +1,5 @@
 ---
-id: goal-010
+id: goal-007
 title: Tiedonkeruun ajastus
 type: other
 created_date: '2026-06-07 12:36'

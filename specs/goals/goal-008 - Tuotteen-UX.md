@@ -1,5 +1,5 @@
 ---
-id: goal-011
+id: goal-008
 title: Tuotteen UX
 type: other
 created_date: '2026-06-22'

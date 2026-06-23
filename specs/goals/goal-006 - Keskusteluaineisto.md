@@ -1,5 +1,5 @@
 ---
-id: goal-009
+id: goal-006
 title: Keskusteluaineisto
 type: other
 created_date: '2026-06-07 12:36'

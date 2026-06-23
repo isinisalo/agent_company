@@ -1,5 +1,5 @@
 ---
-id: goal-006
+id: goal-003
 title: Viestintä
 type: other
 created_date: '2026-06-07 12:35'

@@ -1,5 +1,5 @@
 ---
-id: goal-007
+id: goal-004
 title: Yritysseuranta
 type: other
 created_date: '2026-06-07 12:36'

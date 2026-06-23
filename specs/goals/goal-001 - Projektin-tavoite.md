@@ -41,7 +41,6 @@ Järjestelmän tavoitealueet ovat:
 
 Osa-alueiden tavoitteet ovat näissä dokumenteissa:
 
-- `specs/goals/goal-004 - Projektin-ohjaus.md`
 - `specs/goals/goal-005 - Autentikointi.md`
 - `specs/goals/goal-006 - Viestinta.md`
 - `specs/goals/goal-007 - Yritysseuranta.md`

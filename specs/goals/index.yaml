@@ -15,8 +15,9 @@ goals:
     note: "Numeroaukko. Tälle tunnisteelle ei ole hyväksyttyä Goal-dokumenttia tässä repossa."
   - id: goal-004
     title: Projektin ohjaus
-    status: accepted
-    path: "specs/goals/goal-004 - Projektin-ohjaus.md"
+    status: reserved
+    path: null
+    note: "Numeroaukko. Tälle tunnisteelle ei ole hyväksyttyä Goal-dokumenttia tässä repossa, koska aiempi sisältö oli agenttiohjausta eikä tuotteen tavoitetta."
   - id: goal-005
     title: Autentikointi
     status: accepted

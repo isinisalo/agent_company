@@ -1,6 +1,6 @@
 ---
 id: adr-005
-title: Valitaan Mockoon paikallisiin REST-mockeihin
+title: Mockoon paikallisiin REST-mockeihin
 date: '2026-06-06'
 status: accepted
 ---

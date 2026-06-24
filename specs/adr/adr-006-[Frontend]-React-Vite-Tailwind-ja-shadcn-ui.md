@@ -1,6 +1,6 @@
 ---
 id: adr-006
-title: Valitaan React, Vite, Tailwind CSS ja shadcn/ui
+title: React, Vite, Tailwind CSS ja shadcn/ui
 date: '2026-06-06'
 status: accepted
 ---

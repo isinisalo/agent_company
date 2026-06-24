@@ -1,6 +1,6 @@
 ---
 id: adr-010
-title: Valitaan JWT-pohjainen API-autentikointi
+title: JWT-pohjainen API-autentikointi
 date: '2026-06-06'
 status: accepted
 ---

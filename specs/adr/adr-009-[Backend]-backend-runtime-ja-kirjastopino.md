@@ -1,6 +1,6 @@
 ---
 id: adr-009
-title: Valitaan backend-runtime ja kirjastopino
+title: backend-runtime ja kirjastopino
 date: '2026-06-06'
 status: accepted
 ---

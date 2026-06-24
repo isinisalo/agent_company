@@ -1,6 +1,6 @@
 ---
 id: adr-003
-title: Valitaan monorepo
+title: monorepo
 date: '2026-06-06'
 status: accepted
 ---

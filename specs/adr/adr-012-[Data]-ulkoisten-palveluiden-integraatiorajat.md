@@ -1,6 +1,6 @@
 ---
 id: adr-012
-title: Valitaan ulkoisten palveluiden integraatiorajat
+title: ulkoisten palveluiden integraatiorajat
 date: '2026-06-07'
 status: accepted
 ---

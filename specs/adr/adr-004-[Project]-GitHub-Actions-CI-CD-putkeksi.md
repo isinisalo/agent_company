@@ -1,6 +1,6 @@
 ---
 id: adr-004
-title: Valitaan GitHub Actions CI/CD-putkeksi
+title: GitHub Actions CI/CD-putkeksi
 date: '2026-06-06'
 status: accepted
 ---

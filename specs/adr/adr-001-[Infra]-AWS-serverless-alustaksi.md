@@ -1,6 +1,6 @@
 ---
 id: adr-001
-title: Valitaan AWS serverless-alustaksi
+title: AWS serverless-alustaksi
 date: '2026-06-06'
 status: accepted
 ---

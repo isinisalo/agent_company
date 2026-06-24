@@ -1,6 +1,6 @@
 ---
 id: adr-002
-title: Valitaan DynamoDB ja ulkoiset datalähteet
+title: DynamoDB ja ulkoiset datalähteet
 date: '2026-06-06'
 status: accepted
 ---
